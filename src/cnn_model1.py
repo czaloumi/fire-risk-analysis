@@ -9,16 +9,24 @@ from tensorflow.keras.utils import to_categorical
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-<<<<<<< HEAD
 '''
-My first model following the keras blog post. 
-Experimented with changing my last activation layer from sigmoid <-> softmax.
+NOTES
+-----
+        My first model following the keras blog post. 
+        Experimented with changing my last activation layer from sigmoid <-> softmax.
+        Experimented with adding HIGH dropouts = 0.8 in the last two dense layers to copensate for overfitting.
 
-Model did not perform well -> couldn't understand why until I found non fire images in my train/test/val fire folders. Whoops!
+        Model did not perform well -> couldn't understand why until I found non fire images in my train/test/val fire folders. Whoops!
+
+OUTPUTS 
+-------
+        * saves model weights to 'm1_weights.h5'
+        * prints model summary
+        * prints model evaluation loss and validation accuracy on hold-out images
+        * plots train vs. test loss and accuracy
+        * saves train vs. test loss and accuracy plot as 'm1_loss_acc.jpeg'
 '''
 
-=======
->>>>>>> dcfc837570fb3491deeadd9e7da8e60f5adc06ae
 def model1():
     model = Sequential()
     model.add(Conv2D(32, (3,3), input_shape=(256, 256, 3))) 
@@ -41,11 +49,7 @@ def model1():
     model.add(Activation('relu'))
     model.add(Dropout(0.8))
     model.add(Dense(1))    # = same # of nodes for classification - each node has a probability associated with it using softmax
-<<<<<<< HEAD
     model.add(Activation('sigmoid'))
-=======
-    model.add(Activation('softmax'))
->>>>>>> dcfc837570fb3491deeadd9e7da8e60f5adc06ae
     
     model.compile(loss='binary_crossentropy',
                 optimizer='adam',
@@ -85,15 +89,6 @@ if __name__ == "__main__":
             batch_size=batch_size,
             class_mode='binary',
             shuffle=True)
-
-    # 1st run: dropout .5 and last activation function sigmoid
-        # loss: 0.1194 - accuracy: 0.9375 - val_loss: 3.2206 - val_accuracy: 0.5375
-    # 2nd run: dropout .8 and last activation function softmax
-        # loss: 8.0058 - accuracy: 0.4750 - val_loss: 7.0528 - val_accuracy: 0.5375
-    # 3rd run: dropout .7 and last activation function sigmoid
-        # loss: 0.0218 - accuracy: 1.0000 - val_loss: 3.6720 - val_accuracy: 0.5500
-    
-    # Last run (Wed 8/26): one last Dense layer, w/sigmoid activation; loss='binary_crossentropy'
     
     model = model1()
     
@@ -104,8 +99,7 @@ if __name__ == "__main__":
             validation_data=validation_generator,
             validation_steps=10)
 
-    # Ran this ~4-5 times => naming the weights each time - only kept several
-    model.save_weights('m1_lastlast.h5')
+    model.save_weights('m1_weights.h5')
 
     model.summary()
     
@@ -123,5 +117,5 @@ if __name__ == "__main__":
     ax[1].set_xlabel('Epochs')
     fig.legend()
     fig.show() 
-    fig.savefig('../images/lastlast_model1.jpeg')
+    fig.savefig('../images/m1_loss_acc.jpeg')
     

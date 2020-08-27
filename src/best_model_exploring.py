@@ -43,7 +43,7 @@ def model_evaluate_val(ax, model, batch_size=1):
         labels.append(label)
 
         im = image.reshape(256,256,3) 
-        im = (im*255).astype(np.uint8) 
+        im = (im*255).astype(np.uint8)
         ims = Image.fromarray(im)
         images.append(ims)
 
@@ -60,41 +60,7 @@ def model_evaluate_val(ax, model, batch_size=1):
 
 fig, ax = plt.subplots(2,3, figsize=(10,6))
 fig.subplots_adjust(wspace=.05)
+
 model_evaluate_val(ax, model)
-fig.savefig('../images/test1.jpeg')
-print(model.evaluate(holdout_generator))
 
-images = []
-results = []
-labels = []
-for i, (image, label) in enumerate(holdout_generator):
-    prediction = model.predict(image)
-    if (prediction < .5) != (label):
-        result = 'Correct'
-    else:
-        result = 'Incorrect'
-    
-    i_s.append(i)
-    results.append(result)
-    labels.append(label)
-
-    im = image.reshape(256,256,3) 
-    im = (im*255).astype(np.uint8) 
-
-    ims = Image.fromarray(im)
-    #ims.save('{}_{}_{}.png'.format(i, label, prediction))
-    images.append(ims)
-
-    if i > 4:
-        break
-
-labels = ['FIRE' if label==0 else 'So not fire' for label in labels]
-
-fig, ax = plt.subplots(2,3, figsize=(10,6))
-fig.subplots_adjust(wspace=.05)
-for i, (label, result, image) in enumerate(zip(labels, results, images)):
-    ax[i//3, i%3].imshow(image)
-    ax[i//3, i%3].axis('off')
-    ax[i//3, i%3].set_title('{}, Predicted {}'.format(label, result))
-fig.savefig('../images/m2testonholdout.jpeg')
-plt.show()
+fig.savefig('../images/bestmodel_performance.jpeg')

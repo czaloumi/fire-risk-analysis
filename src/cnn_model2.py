@@ -9,15 +9,20 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-<<<<<<< HEAD
 '''
-Second saved model. Checkpoint (defined in if name == main) compares specified score each epoch.
+NOTES
+-----
+        Checkpoint (defined in if name == main) compares score each epoch and saves weights of best score.
 
-Saves weights of best score.
+OUTPUTS
+-------
+        * 'best_weights.hdf5'
+        * prints model summary
+        * prints model evaluation loss and validation accuracy on hold-out images
+        * plots train vs. test loss and accuracy
+        * saves train vs. test loss and accuracy plot as 'm2_loss_acc.jpeg'
 '''
 
-=======
->>>>>>> dcfc837570fb3491deeadd9e7da8e60f5adc06ae
 def model2():
     model = Sequential()
     model.add(Conv2D(32, (3, 3), padding='same', input_shape=(256, 256, 3), activation = 'relu'))
@@ -97,6 +102,8 @@ if __name__ == "__main__":
     
     model.summary()
 
+    model.evaluate(holdout_generator)
+
     fig, ax = plt.subplots(1, 2, figsize=(10,6))
 
     ax[0].plot(history.history['loss'], label='train', linestyle='-.', color='orange')
@@ -109,4 +116,4 @@ if __name__ == "__main__":
     ax[1].set_xlabel('Epochs')
     fig.legend()
     fig.show() 
-    fig.savefig('../images/m2.jpeg')
+    fig.savefig('../images/m2_loss_acc.jpeg')
