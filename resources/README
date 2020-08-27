@@ -1,4 +1,6 @@
-To follow this project, you will need to run the files in the following order:
+In src, run cnn_fire.py to bypass all of these steps. These are here for reference and were used throughout the week.
+
+Initially, to follow this project, you would have needed to run the files in the following order:
 
 1. train_test_val.py
   * separates fire_images and non_fire_images downloaded from kaggle into a train, test, and val folder with corresponding fire and non-fire subfolders.
