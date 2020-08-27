@@ -1,1 +1,7 @@
 Images can be downloaded here: https://www.kaggle.com/phylake1337/fire-dataset
+
+** Download images into THIS data folder!
+** fire images in a subfolder named 'fire_images'
+** not fire images in a subfolder named 'non_fire_images'
+
+This is important so that scripts work to separate out into test-train-val folders :)
