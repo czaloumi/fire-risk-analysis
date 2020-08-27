@@ -1,0 +1,19 @@
+To follow this project, you will need to run the files in the following order:
+
+1. train_test_val.py
+  * separates fire_images and non_fire_images downloaded from kaggle into a train, test, and val folder with corresponding fire and non-fire subfolders.
+  
+2. cnn_model1.py *optional*
+  * optional first model
+  * read notes about outputs at top of file
+  
+3. cnn_model2.py
+  * best model
+  * saves weights according to checkpoint
+  
+4. best_model.py
+  * saves model from cnn_model2.py as 'bestmodel.h5'
+  
+5. best_model_exploring.py
+  * loads in 'bestmodel.h5'
+  * plots/saves 'bestmodel_performance.jpeg' with 6 fire/nonfire images total w/predictions and original labels
