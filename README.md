@@ -61,10 +61,11 @@ I then trained the following neural network which overfit to my training data (s
  
 Increasing dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly.
 Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images... 
- 
- ![title4](images/softmaxdropoutmodel.jpeg)
+Model evaluated on unseen hold-out images results:
 
- ![title5](images/m1of_lasttry_eval.png)
+        Loss: 2.1768    Accuracy: 5.0000  
+
+ ![title4](images/softmaxdropoutmodel.jpeg)
 
 Inspecting my newly constructed train, test, and val folders, I found the test and val *fire* subfolders filled with *non fire* images!!! Whoops...
 
