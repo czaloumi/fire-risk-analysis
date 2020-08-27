@@ -17,3 +17,8 @@ To follow this project, you will need to run the files in the following order:
 5. best_model_exploring.py
   * loads in 'bestmodel.h5'
   * plots/saves 'bestmodel_performance.jpeg' with 6 fire/nonfire images total w/predictions and original labels
+
+Other files (do not need to be run):
+ * cleaning_folders.py == after finding non fire images in my fire folders, used this file to clean
+ * gen_images == original method I used to generate images; bypassed this step when it was killing computer's memory from saving too many image arrays
+ * main.ipynb == original method to save images to arrays and then plot
