@@ -60,12 +60,13 @@ I then trained the following neural network which overfit to my training data (s
  ![title3](images/overfittingmodel.jpeg)
  
 Increasing dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly.
-Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images... 
-Model evaluated on unseen hold-out images results:
-
-        Loss: 2.1768    Accuracy: 5.0000  
+Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images...  
 
  ![title4](images/softmaxdropoutmodel.jpeg)
+
+Model evaluated on unseen hold-out images results:
+
+        Loss: 2.1768    Accuracy: 0.5000
 
 Inspecting my newly constructed train, test, and val folders, I found the test and val *fire* subfolders filled with *non fire* images!!! Whoops...
 
@@ -77,9 +78,13 @@ After emptying the non fire images from my fire folders and filling them randoml
 
  ![title7](images/m2_summary.png)
 
-This new model predicted beautifully with 96% accuracy on unseen hold-out images. I saved the model's weights and the model itself for future use without having to train.
+This new model predicted beautifully! I saved the model's weights and the model itself for future use without having to train.
 
  ![title8](images/m2.jpeg)
+ 
+Model evaluated on unseen hold-out images:
+
+        Loss: 0.2823    Accuracy: 0.9619
  
 This is better illustrated when we look at the images it was fed and compare it's prediction. Although there's only 6 images displayed, they accurately illustrate images that are easy to classify vs the one image the model did not classify correctly. The image the model couldn't detect fire in has a small area of fire with plenty of smoke. In comparison to the other 'non-fire' images, it looks very similar to fog.
 
