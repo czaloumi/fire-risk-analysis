@@ -16,26 +16,26 @@ Saves model
 '''
 
 model = Sequential()
-model.add(Conv2D(32, (3, 3), padding='same', input_shape=(256, 256, 3), activation = 'relu'))
-model.add(Conv2D(32, (3, 3), activation='relu'))
+model.add(Conv2D(32, (3, 3), padding='same', input_shape=(256, 256, 3), activation = 'relu', name='conv1'))
+model.add(Conv2D(32, (3, 3), activation='relu', name='conv2'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.5)) 
     # second convolutional layer
-model.add(Conv2D(64, (3, 3), padding='same', activation = 'relu'))
-model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(Conv2D(64, (3, 3), padding='same', activation = 'relu', name='conv3'))
+model.add(Conv2D(64, (3, 3), activation='relu', name='conv4'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.5)) # antes era 0.25
     # third convolutional layer
-model.add(Conv2D(64, (3, 3), padding='same', activation = 'relu'))
-model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(Conv2D(64, (3, 3), padding='same', activation = 'relu', name='conv5'))
+model.add(Conv2D(64, (3, 3), activation='relu', name='conv6'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.5)) # antes era 0.25
     # flatten
 model.add(Flatten())
     # full connection
-model.add(Dense(units = 512, activation = 'relu'))
+model.add(Dense(units = 512, activation = 'relu', name='dense1'))
 model.add(Dropout(0.5)) 
-model.add(Dense(units = 1, activation = 'sigmoid'))
+model.add(Dense(units = 1, activation = 'sigmoid', name='visualized_layer'))
     # load best weights
 model.load_weights('best_weights.hdf5')
 model.compile(loss='binary_crossentropy',

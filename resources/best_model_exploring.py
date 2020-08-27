@@ -16,6 +16,7 @@ Plots 6 images.
 '''
 
 model = load_model('bestmodel.h5')
+print('Model loaded.')
 
 def model_evaluate_val(ax, model, batch_size=1):
     datagen = ImageDataGenerator(rescale=1./255)
