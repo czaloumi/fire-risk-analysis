@@ -18,19 +18,31 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 import tensorflow as tf
 import pathlib
 
-data_dir = '../data/fire_dataset/'
+'''
+This notebook was made to overcome this message that eventually began popping up in 'cnn_fire.py':
+  Filling up shuffle buffer (this may take a while): 107 of 128
+  Shuffle buffer filled.
+
+I then began receiving this error:
+  The calling iterator did not fully read the dataset being cached. In order to avoid unexpected truncation of the dataset, the partially cached contents of the dataset will be discarded. This can happen if you have an input pipeline similar to `dataset.cache().take(k).repeat()`. You should use `dataset.take(k).cache().repeat()` instead.
+
+Moved to Google Colab to remedy.
+'''
+
+data_dir = '../data/fire_dataset0/'
 data_dir = pathlib.Path(data_dir)
 
-batch_size = 32
+batch_size = 16
 img_height = 256
 img_width = 256
-epochs=50
+epochs=10
 
 X_train = image_dataset_from_directory(
   data_dir,
   validation_split=0.2,
   subset="training",
   seed=123,
+  shuffle=True,
   image_size=(img_height, img_width),
   batch_size=batch_size)
 
@@ -42,12 +54,13 @@ X_test = image_dataset_from_directory(
   image_size=(img_height, img_width),
   batch_size=batch_size)
 
+
 for image_batch, labels_batch in X_train:
+    print(image_batch[0].shape)
     print(image_batch.shape)
     print(labels_batch.shape)
     break
 
-'''
 class_names = X_train.class_names
 print(class_names)
 
@@ -60,27 +73,19 @@ for images, labels in X_train.take(1):
         plt.axis('off')
 plt.show()
 plt.savefig('../images/fire_notfire_mix.png')
-'''
 
 # use buffered prefetching so we can yield data from disk without having I/O become blocking. 
-
 AUTOTUNE = tf.data.experimental.AUTOTUNE
+#The buffer_size in Dataset.shuffle() can affect the randomness of your dataset, and hence the order in which elements are produced.
+#The buffer_size in Dataset.prefetch() only affects the time it takes to produce the next element.
+X_train = X_train.cache().repeat().shuffle(16).prefetch(buffer_size=AUTOTUNE)
+X_test = X_test.cache().repeat().prefetch(buffer_size=AUTOTUNE)
 
-X_train = X_train.cache().shuffle(32).prefetch(buffer_size=AUTOTUNE)
-X_test = X_test.cache().shuffle(32).prefetch(buffer_size=AUTOTUNE)
-
-
-'''
-for image_batch, labels_batch in X_train.take(1):
-    print(image_batch.shape)
-    print(labels_batch.shape)
-    break
-'''
 
 model = Sequential([
   layers.experimental.preprocessing.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
-  layers.Conv2D(32, 3, padding='same', activation='relu'),
-  layers.Conv2D(32, 3, activation='relu'),
+  layers.Conv2D(16, 3, padding='same', activation='relu'),
+  layers.Conv2D(16, 3, activation='relu'),
   layers.MaxPooling2D(),
   layers.Dropout(0.5),
   layers.Conv2D(64, 3, padding='same', activation='relu'),
@@ -107,7 +112,8 @@ history = model.fit(
             X_train,
             steps_per_epoch=10,
             epochs=epochs,
-            validation_data=X_test)
+            validation_data=X_test,
+            validation_steps=5)
 print('Model fitted.')
 
 from cnn_fire import plot_loss_val
