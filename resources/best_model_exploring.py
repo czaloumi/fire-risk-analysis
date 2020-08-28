@@ -15,7 +15,7 @@ Iterates through batch size of 1 in validation data and pulls the image, resulti
 Plots 6 images.
 '''
 
-model = load_model('bestmodel.h5')
+model = load_model('fire_trained_model.h5')
 print('Model loaded.')
 
 def model_evaluate_val(ax, model, batch_size=1):
