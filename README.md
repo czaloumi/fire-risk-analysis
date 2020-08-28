@@ -10,7 +10,9 @@
 
 # Background & Motivation
 
-Today (8/22/2020), 92 forest fires are burning on approximately 1.5 million acres in 13 states. There are currently more than 24,000 wildland firefighters assigned and distributed to tackle these incidents according to The National Interagency Fire Center. Forest fires are not only destructive and dangerous, but their impact lingers with unhealthy air quality. My goal is to create a model to identify forest fires from images. Secondary/harder goal: I will explore the nasa_data to model the fire projected paths.
+Today (8/22/2020), 92 forest fires are burning on approximately 1.5 million acres in 13 states. There are currently more than 24,000 wildland firefighters assigned and distributed to tackle these incidents according to The National Interagency Fire Center. Forest fires are not only destructive and dangerous, but their impact lingers with unhealthy air quality. 
+
+The past two weeks left many states in smoke and I was encouraged to begin data science exploration into fire detection and eventually fire prediction. My goal in this project is to create a convolutional neural network to accurately identify forest fires from images.
 
 # Data
 
@@ -21,7 +23,7 @@ Kaggle fire images dataset: https://www.kaggle.com/phylake1337/fire-dataset
 
 # Image Preprocessing
 
-The two classes are very imbalanced and the dataset overall is quite tiny, so I generated additional images bringing my total dataset to 1,630 'fire' images and 1,525 'not fire' images using the datagenerator below:
+The two classes are very imbalanced and the dataset overall is quite tiny, so I generated (resources > gen_images.py) additional images bringing my total dataset to 1,630 'fire' images and 1,525 'not fire' images using the datagenerator below. The images below are examples of what comprised my dataset.
 
 ```
 datagen = ImageDataGenerator(
@@ -54,9 +56,9 @@ I organized my data folders from:
  
 
 I then trained the following neural network which overfit to my training data (shown below in the high training accuracy).
- 
+ <p align="center">
  ![title2](images/m1of_lasttry_summary.png)
- 
+ </p>
  ![title3](images/overfittingmodel.jpeg)
  
 Increasing dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly.
