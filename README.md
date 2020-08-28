@@ -129,5 +129,7 @@ AUTOTUNE will automatically tune performance knobs on tf.data.experimental.Optim
  X_train = X_train.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
  X_test = X_test.cache().prefetch(buffer_size=AUTOTUNE)
 ```
-
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/giphy.gif" />
+ </p>
 
