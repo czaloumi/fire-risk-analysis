@@ -102,7 +102,7 @@ def model(activation='sigmoid', num_classes=1, input_shape=(256, 256, 3)):
     # full connection
     model.add(Dense(units = 512, activation = 'relu'))
     model.add(Dropout(0.5)) 
-    model.add(Dense(units = num_classes, activation = activation))
+    model.add(Dense(units = num_classes, activation = activation, name='visualized_layer'))
     print('- - - - -> Model defined.')
     return model
 

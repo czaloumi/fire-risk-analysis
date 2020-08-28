@@ -22,9 +22,12 @@ import pathlib
 This notebook was made to overcome this message that eventually began popping up in 'cnn_fire.py':
   Filling up shuffle buffer (this may take a while): 107 of 128
   Shuffle buffer filled.
+  * this would run for about 45 minutes to get through 10 epochs
 
 I then began receiving this error:
   The calling iterator did not fully read the dataset being cached. In order to avoid unexpected truncation of the dataset, the partially cached contents of the dataset will be discarded. This can happen if you have an input pipeline similar to `dataset.cache().take(k).repeat()`. You should use `dataset.take(k).cache().repeat()` instead.
+  * still am unsure why i was getting this error - a place for more research
+  * did not have shuffle buffer or this error in Colab!
 
 Moved to Google Colab to remedy.
 '''
