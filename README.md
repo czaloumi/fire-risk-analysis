@@ -139,4 +139,15 @@ AUTOTUNE will automatically tune performance knobs on tf.data.experimental.Optim
  <img src="https://github.com/czaloumi/fire/blob/master/images/model_loss_acc_colab.jpeg" />
  </p>
 
-Anywho... same model. WAY faster. No shuffle buffering. 98% validation accuracy. DOUBLE BAM.
+Anywho... same model. WAY faster. No shuffle buffering. 98% validation accuracy. DOUBLE BA!
+Google Colab and prefetching for the win!
+
+# Conclusion & Next Steps
+
+I would love to conduct further research on training a convolutional neural network on satellite images of fire/non-fire images. A CNN combined with other model methods for evaluating variables that contribute to fires starting (weather, plant life, etc.) would allow us to survey high-risk areas and predict how fires spread to better control them and reduce damage.
+
+One last note, before I keep bragging about a VALIDATION ACCURACY OF 98-100% (WOOOO), my last model's confusion matrix is displayed below which means my model has a different threshold for determining its probability predictions/outputs than I had in mind (0.5). I need to further investigate my model's prediction/evaluation threshold.
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/last.png" />
+ </p>
