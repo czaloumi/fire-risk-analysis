@@ -95,11 +95,9 @@ After emptying the *non fire* images from my *fire* folders and filling them ran
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/m2_summary.png" />
  </p>
-This new model predicted beautifully with several runs reaching a validation accuracy of 98%.
+This new model predicted beautifully with several runs reaching a validation accuracy of 98%. Below is the model evaluated on unseen hold-out images:
 
  ![title8](images/m2.jpeg)
- 
-Model evaluated on unseen hold-out images:
 
         Loss: 0.2823    Accuracy: 0.9619
  
@@ -107,7 +105,7 @@ This is better illustrated when we look at the images it was fed and compare it'
 
  ![title9](images/m2testonholdout.jpeg)
 
-# Challenges
+# Overcoming Challenges with a new Data Generator
 
 While training my new HOT model, I received warnings of "Shuffle Buffer" that notified me between epochs of each buffer being shuffled/filled. This was taking my computer up to an hour to run 10 epochs. After some research, I came to the understanding that my ImageGenerator objects were reshuffling my entire dataset (~3,000 images) between each epoch which is very taxing on a computer. The solution is setting a shuffle, and prefetching data with the first epoch. ImageGenerators are not capable of this however the 'image_dataset_from_directory' generating method is!
 
@@ -124,12 +122,12 @@ I defined new train and test data generators to bypass saving image arrays to my
 
 It's important to shuffle your filenames & labels in advance OR ensure you are shuffling a number of images greater than the amount in any of your classes. 
 
-AUTOTUNE will automatically tune performance knobs on tf.data.experimental.OptimizationOptions(). So when using tf.data objects, tf.data builds a performance model of the input pipeline and uses these OptimizationOptions() to allocate CPU
-
-(tf.data builds a performance model of the input pipeline and runs an optimization algorithm to find a good allocation of its CPU budget across all tunable operations. It also tracks the time spent on these operations to further optimize!
+AUTOTUNE will automatically tune performance knobs on tf.data.experimental.OptimizationOptions(). So when using tf.data objects, tf.data builds a performance model of the input pipeline and uses these OptimizationOptions() to allocate CPU. tf.data builds a performance model of the input pipeline and runs an optimization algorithm to find a good allocation of its CPU budget across all tunable operations. It also tracks the time spent on these operations to further optimize!
 
 ```
  AUTOTUNE = tf.data.experimental.AUTOTUNE
  X_train = X_train.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
  X_test = X_test.cache().prefetch(buffer_size=AUTOTUNE)
 ```
+
+
