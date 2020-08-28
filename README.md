@@ -76,7 +76,7 @@ I then trained the following neural network (resources > cnn_model1.py) which ov
  
  ![title3](images/overfittingmodel.jpeg)
  
-Deep neural networks are prone to overfit on training data, and neural network ensembles are arguably the best cure to overfitting. However a quicker, cheaper, and very effective alternative method is to simulate having a large number of different network architectures by randomly dropping out nodes during training i.e. DROPOUT. Increasing the dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly. Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images...  
+Deep neural networks are prone to overfit on training data, and neural network ensembles are arguably the best cure to overfitting. However a quicker, cheaper, and very effective alternative method is to simulate having a large number of different network architectures by randomly dropping out nodes during training i.e. DROPOUT. When you apply dropout to a layer it randomly drops out (by setting the activation to zero) a number of output units from the layer during the training process. Dropout has one input in the form of a float that represents the fraction of output units to randomly drop from the applied layer. Increasing the dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly. Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images...  
 
  ![title4](images/softmaxdropoutmodel.jpeg)
 
@@ -95,7 +95,7 @@ After emptying the *non fire* images from my *fire* folders and filling them ran
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/m2_summary.png" />
  </p>
-This new model predicted beautifully! I saved the model's weights and the model itself for future use without having to train.
+This new model predicted beautifully with several runs reaching a validation accuracy of 98%.
 
  ![title8](images/m2.jpeg)
  
@@ -106,3 +106,26 @@ Model evaluated on unseen hold-out images:
 This is better illustrated when we look at the images it was fed and compare it's prediction. Although there's only 6 images displayed, they accurately illustrate images that are easy to classify vs. the one image the model did not classify correctly. The image the model couldn't detect fire in has a small area of fire with plenty of smoke. In comparison to the other 'non-fire' images, it looks very similar to fog.
 
  ![title9](images/m2testonholdout.jpeg)
+
+# Challenges
+
+While training my new HOT model, I received warnings of "Shuffle Buffer" that notified me between epochs of each buffer being shuffled/filled. This was taking my computer up to an hour to run 10 epochs. After some research, I came to the understanding that my ImageGenerator objects were reshuffling my entire dataset (~3,000 images) between each epoch which is very taxing on a computer. The solution is setting a shuffle, and prefetching data with the first epoch. ImageGenerators are not capable of this however the 'image_dataset_from_directory' generating method is!
+
+Following this Tensorflow tutorial: https://www.tensorflow.org/tutorials/images/classification
+
+I defined new train and test data generators to bypass saving image arrays to my local computer and the shuffling problem I was having. 'image_dataset_from_directory' outputs a data.Dataset object which is VERY easy to work with and I highly recommend it for anyone looking to generate data for a neural network. Some quick pointers:
+
+  * .cache() keeps the images in memory after they're loaded off disk during the first epoch.
+  * .prefetch(buffer_size) overlaps data preprocessing and model execution while training. Takes parameter 'buffer_size' that represents the max number of elements to be buffered with prefetching. 
+    i.e. I am creating a buffer of AT MOST 'buffer_size' images, and a background thread to fill that buffer in the background
+  * .shuffle() handles datasets that are too large to fit in memory and shuffles the amount of elements taken as its parameter.
+    large shuffle > dataset   =>   uniform shuffle
+    small shuffle == 1   =>  no shuffling
+
+It's important to shuffle your filenames & labels in advance OR ensure you are shuffling a number of images greater than the amount in any of your classes.
+
+```
+ AUTOTUNE = tf.data.experimental.AUTOTUNE
+ X_train = X_train.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
+ X_test = X_test.cache().prefetch(buffer_size=AUTOTUNE)
+```
