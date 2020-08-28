@@ -56,8 +56,35 @@ I organized my data folders from:
  
 
 I then trained the following neural network which overfit to my training data (shown below in the high training accuracy).
- <p align="center">
- ![title2](images/m1of_lasttry_summary.png)
+
+ ```
+    model = Sequential()
+    model.add(Conv2D(32, (3,3), input_shape=(256, 256, 3))) 
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+
+    model.add(Conv2D(32, (3,3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+
+    model.add(Conv2D(64, (3,3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+
+    model.add(Flatten())  # converts 3D feature maps to 1D feature vectors
+    model.add(Dense(64))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.8))
+    model.add(Dense(64))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.8))
+    model.add(Dense(1))    # = same # of nodes for classification - each node has a probability associated with it using softmax
+    model.add(Activation('sigmoid'))
+    
+    model.compile(loss='binary_crossentropy',
+                optimizer='adam',
+                metrics=['accuracy'])
+```
  </p>
  ![title3](images/overfittingmodel.jpeg)
  
@@ -77,9 +104,9 @@ Inspecting my newly constructed train, test, and val folders, I found the test a
 # A *HOT* CNN Model
 
 After emptying the non fire images from my fire folders and filling them randomly with fire images, I built a new neural network, not all that different from the first model. I made sure to include more dropout (after each convolutional layer):
-
+ <p align="center">
  ![title7](images/m2_summary.png)
-
+ </p>
 This new model predicted beautifully! I saved the model's weights and the model itself for future use without having to train.
 
  ![title8](images/m2.jpeg)
