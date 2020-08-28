@@ -1,4 +1,6 @@
-In src, run cnn_fire.py to bypass all of these steps. These are here for reference and were used throughout the week.
+To follow my project, in src, run cnn_fire.py to bypass all of these steps. Next run image_dataset_from_dir.py and lastly, run google_collab_GAMECHANGER.ipynb.
+
+These are here for reference and were used throughout the week.
 
 Initially, to follow this project, you would have needed to run the files in the following order:
 
