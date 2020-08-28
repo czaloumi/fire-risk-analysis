@@ -122,7 +122,11 @@ I defined new train and test data generators to bypass saving image arrays to my
     * large shuffle > dataset   =>   uniform shuffle
     * small shuffle = 1   =>  no shuffling
 
-It's important to shuffle your filenames & labels in advance OR ensure you are shuffling a number of images greater than the amount in any of your classes.
+It's important to shuffle your filenames & labels in advance OR ensure you are shuffling a number of images greater than the amount in any of your classes. 
+
+AUTOTUNE will automatically tune performance knobs on tf.data.experimental.OptimizationOptions(). So when using tf.data objects, tf.data builds a performance model of the input pipeline and uses these OptimizationOptions() to allocate CPU
+
+(tf.data builds a performance model of the input pipeline and runs an optimization algorithm to find a good allocation of its CPU budget across all tunable operations. It also tracks the time spent on these operations to further optimize!
 
 ```
  AUTOTUNE = tf.data.experimental.AUTOTUNE
