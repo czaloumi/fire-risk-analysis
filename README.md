@@ -85,7 +85,7 @@ I then trained the following neural network which overfit to my training data (s
                 optimizer='adam',
                 metrics=['accuracy'])
 ```
- </p>
+ 
  ![title3](images/overfittingmodel.jpeg)
  
 Increasing dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly.
@@ -105,7 +105,7 @@ Inspecting my newly constructed train, test, and val folders, I found the test a
 
 After emptying the non fire images from my fire folders and filling them randomly with fire images, I built a new neural network, not all that different from the first model. I made sure to include more dropout (after each convolutional layer):
  <p align="center">
- ![title7](images/m2_summary.png)
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m2_summary.png" />
  </p>
 This new model predicted beautifully! I saved the model's weights and the model itself for future use without having to train.
 
