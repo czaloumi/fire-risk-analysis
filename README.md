@@ -47,8 +47,10 @@ I organized my data folders from:
 
 I then trained the following neural network (resources > cnn_model1.py) which overfit to my training data (shown below in the high training accuracy).
 
- ![titlerandom](images/m1of_lasttry_summary.png)
- 
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m1of_lasttry_summary.png" />
+ </p>
+
  ![title3](images/overfittingmodel.jpeg)
  
 Deep neural networks are prone to overfit on training data, and neural network ensembles are arguably the best cure to overfitting. However a quicker, cheaper, and very effective alternative method is to simulate having a large number of different network architectures by randomly dropping out nodes during training i.e. DROPOUT. When you apply dropout to a layer it randomly drops out (by setting the activation to zero) a number of output units from the layer during the training process. Dropout has one input in the form of a float that represents the fraction of output units to randomly drop from the applied layer. Increasing the dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly. Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images...  
