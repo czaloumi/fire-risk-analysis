@@ -71,14 +71,14 @@ I then trained the following neural network which overfit to my training data (s
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
-    model.add(Flatten())  # converts 3D feature maps to 1D feature vectors
+    model.add(Flatten())
     model.add(Dense(64))
     model.add(Activation('relu'))
     model.add(Dropout(0.8))
     model.add(Dense(64))
     model.add(Activation('relu'))
     model.add(Dropout(0.8))
-    model.add(Dense(1))    # = same # of nodes for classification - each node has a probability associated with it using softmax
+    model.add(Dense(1))
     model.add(Activation('sigmoid'))
     
     model.compile(loss='binary_crossentropy',
