@@ -114,7 +114,7 @@ AUTOTUNE will automatically tune performance knobs on tf.data.experimental.Optim
  <img src="https://github.com/czaloumi/fire/blob/master/images/model_loss_acc_colab.jpeg" />
  </p>
 
-Anywho... same model. WAY faster. No shuffle buffering. 98% validation accuracy. DOUBLE BA!
+Anywho... same model. WAY faster. No shuffle buffering. 98% validation accuracy. BAM.
 Google Colab and prefetching for the win!
 
 # Conclusion & Next Steps
