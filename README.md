@@ -25,7 +25,9 @@ Kaggle fire images dataset: https://www.kaggle.com/phylake1337/fire-dataset
 
 The two classes are very imbalanced and the dataset overall is quite tiny, so I generated (resources > gen_images.py) additional images bringing my total dataset to 1,630 'fire' images and 1,525 'not fire' images using the datagenerator below. The images below are examples of what comprised my dataset.
 
- ![title1](images/view_array_ex2x3.jpeg)
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/view_array_ex2x3.jpeg" />
+ </p>
  
  # A not so *hot* CNN Model
  
