@@ -149,7 +149,7 @@ def train_model(model, batch_size, epochs):
             verbose=1,
             save_best_only=True)
     
-    model.fit(
+    history = model.fit(
             train_generator,
             steps_per_epoch=10,
             epochs=epochs,
@@ -157,7 +157,7 @@ def train_model(model, batch_size, epochs):
             validation_data=validation_generator,
             validation_steps=10)
 
-    return model
+    return model, history
 
 def save_model(model, model_title):
     model.save(model_title)
@@ -177,16 +177,16 @@ def eval(model):
     l, a = model.evaluate(holdout_generator)
     print('- - - - -> Loss: {}, Accuracy: {}'.format(l, a))
 
-def plot_loss_val(ax, model):
+def plot_loss_val(ax, history):
     '''
     Plots model's train & test loss per epoch and model's train & test accuracy per epoch.
     '''
-    ax[0].plot(model.model['loss'], label='train', linestyle='-.', color='orange')
-    ax[0].plot(model.model['val_loss'], label='test', linestyle='--', color='green')
+    ax[0].plot(history.history['loss'], label='train', linestyle='-.', color='orange')
+    ax[0].plot(history.history['val_loss'], label='test', linestyle='--', color='green')
     ax[0].set_title('Loss')
     ax[0].set_xlabel('Epochs')
-    ax[1].plot(model.model['accuracy'], label='train', linestyle='-.', color='orange')
-    ax[1].plot(model.model['val_accuracy'], label='test',linestyle='--', color='green')
+    ax[1].plot(history.history['accuracy'], label='train', linestyle='-.', color='orange')
+    ax[1].plot(history.history['val_accuracy'], label='test',linestyle='--', color='green')
     ax[1].set_title('Accuracy')
     ax[1].set_xlabel('Epochs')
 
@@ -248,11 +248,8 @@ if __name__ == "__main__":
     model = model(activation, num_classes)
 
     model = compile_model(model, metrics, optimizer)
-    
-    # load model weights                                        # remove later
-    model.load_weights('best_weights.hdf5')
 
-    model = train_model(model, batch_size, epochs)
+    model, history = train_model(model, batch_size, epochs)
 
     print(model.summary())
 
@@ -261,7 +258,7 @@ if __name__ == "__main__":
     eval(model)
 
     fig, ax = plt.subplots(1,2, figsize=(10,6))
-    plot_loss_val(ax, model)
+    plot_loss_val(ax, history)
     fig.legend()
     fig.savefig('../images/model_loss_acc.jpeg')
 
