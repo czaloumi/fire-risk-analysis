@@ -119,8 +119,8 @@ I defined new train and test data generators to bypass saving image arrays to my
   * .prefetch(buffer_size) overlaps data preprocessing and model execution while training. Takes parameter 'buffer_size' that represents the max number of elements to be buffered with prefetching. 
     i.e. I am creating a buffer of AT MOST 'buffer_size' images, and a background thread to fill that buffer in the background
   * .shuffle() handles datasets that are too large to fit in memory and shuffles the amount of elements taken as its parameter.
-    large shuffle > dataset   =>   uniform shuffle
-    small shuffle == 1   =>  no shuffling
+    * large shuffle > dataset   =>   uniform shuffle
+    * small shuffle = 1   =>  no shuffling
 
 It's important to shuffle your filenames & labels in advance OR ensure you are shuffling a number of images greater than the amount in any of your classes.
 
