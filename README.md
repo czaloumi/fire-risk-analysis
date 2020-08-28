@@ -98,8 +98,9 @@ Model evaluated on unseen hold-out images results:
         Loss: 2.1768    Accuracy: 0.5000
 
 Inspecting my newly constructed train, test, and val folders, I found the test and val *fire* subfolders filled with *non fire* images!!! Whoops...
-
- ![title6](images/tenor.gif)
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/tenor.gif" />
+ </p>
 
 # A *HOT* CNN Model
 
