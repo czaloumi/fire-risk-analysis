@@ -7,9 +7,8 @@ Initially, to follow this project, you would have needed to run the files in the
 1. train_test_val.py
   * separates fire_images and non_fire_images downloaded from kaggle into a train, test, and val folder with corresponding fire and non-fire subfolders.
   
-2. cnn_model1.py *optional*
-  * optional first model
-  * read notes about outputs at top of file
+2. model1.py *optional*
+  * optional first model following keras blog post: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html 
   
 3. cnn_model2.py
   * best model
