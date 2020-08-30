@@ -56,7 +56,9 @@ Code for this model can be found in resources as 'model1.py'. Note that this fil
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_loss_acc50epoch.jpeg" />
  </p>
 
-This model has o.k. training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly.
+This model has o.k. training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly. Evaluated on hold-out images results:
+
+ * Loss: 0.63  * Accuracy: 0.69
 
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_predictions50epoch.jpeg" />
