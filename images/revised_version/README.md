@@ -46,6 +46,8 @@ Examples of images comprising the dataset:
 
 I constructed a first convolutional neural network based of this keras blog post: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
+Code for this model can be found in resources as 'model1.py'. Note that this file uses a flow_from_directory image generator like the blog post.
+
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/old/m1of_lasttry_summary.png" />
  </p>
@@ -64,6 +66,8 @@ This model has very low training and test accuracy and is doing slightly better 
 
 The second convolutional neural network references a Tensorflow classification tutorial: https://www.tensorflow.org/tutorials/images/classification
 
+Code for this model can be found in resources as 'model2.py'. Note that this file uses a image_dataset_from_directory image generator like the blog post. This method is followed in the Google Colab notebook for following along.
+
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/old/m2_summary.png" />
  </p>
@@ -77,4 +81,6 @@ This mode performs much better than the first CNN model and accurately identifie
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions.jpeg" />
  </p>
+
+# ROC Curves & Confusion Matrix
 
