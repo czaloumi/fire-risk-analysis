@@ -48,14 +48,14 @@ I organized my data folders from:
 I then trained the following neural network (resources > cnn_model1.py) which overfit to my training data (shown below in the high training accuracy).
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/m1of_lasttry_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/old/m1of_lasttry_summary.png" />
  </p>
 
- ![title3](images/overfittingmodel.jpeg)
+ ![title3](images/old/overfittingmodel.jpeg)
  
 Deep neural networks are prone to overfit on training data, and neural network ensembles are arguably the best cure to overfitting. However a quicker, cheaper, and very effective alternative method is to simulate having a large number of different network architectures by randomly dropping out nodes during training i.e. DROPOUT. When you apply dropout to a layer it randomly drops out (by setting the activation to zero) a number of output units from the layer during the training process. Dropout has one input in the form of a float that represents the fraction of output units to randomly drop from the applied layer. Increasing the dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly. Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images...  
 
- ![title4](images/softmaxdropoutmodel.jpeg)
+ ![title4](images/old/softmaxdropoutmodel.jpeg)
 
 Model evaluated on unseen hold-out images results:
 
@@ -70,17 +70,17 @@ Inspecting my newly constructed train, test, and val folders, I found the test a
 
 After emptying the *non fire* images from my *fire* folders and filling them randomly with fire images, I built a new neural network (src > cnn_fire.py), not all that different from the first model except for the addition of three more dropout layers (0.5) after each convolutional 2D layer.
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/m2_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/old/m2_summary.png" />
  </p>
 This new model predicted beautifully with several runs reaching a validation accuracy of 98%. Below is the model evaluated on unseen hold-out images:
 
- ![title8](images/m2.jpeg)
+ ![title8](images/old/m2.jpeg)
 
         Loss: 0.2823    Accuracy: 0.9619
  
 This is better illustrated when we look at the images it was fed and compare it's prediction. Although there's only 6 images displayed, they accurately illustrate images that are easy to classify vs. the one image the model did not classify correctly. The image the model couldn't detect fire in has a small area of fire with plenty of smoke. In comparison to the other 'non-fire' images, it looks very similar to fog.
 
- ![title9](images/m2testonholdout.jpeg)
+ ![title9](images/old/m2testonholdout.jpeg)
 
 # Overcoming Challenges with a new Data Generator
 
@@ -111,7 +111,7 @@ AUTOTUNE will automatically tune performance knobs on tf.data.experimental.Optim
  </p>
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/model_loss_acc_colab.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/old/model_loss_acc_colab.jpeg" />
  </p>
 
 Anywho... same model. WAY faster. No shuffle buffering. 98% validation accuracy. BAM.
@@ -124,5 +124,5 @@ I would love to conduct further research on training a convolutional neural netw
 One last note, before I keep bragging about a VALIDATION ACCURACY OF 98-100% (WOOOO), my last model's confusion matrix is displayed below which means my model has a different threshold for determining its probability predictions/outputs than I had in mind (0.5). I need to further investigate my model's prediction/evaluation threshold.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/last.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/old/last.png" />
  </p>
