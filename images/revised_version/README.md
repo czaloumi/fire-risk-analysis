@@ -18,7 +18,7 @@ Images for new README to replace initial project submitted 8/28/2020.
 
 Today (August 2020), 92 forest fires are burning on approximately 1.5 million acres in 13 states. There are currently more than 24,000 wildland firefighters assigned and distributed to tackle these incidents according to The National Interagency Fire Center. Forest fires are not only destructive and dangerous, but their impact lingers with unhealthy air quality. 
 
-The past two weeks left many states in smoke and I was encouraged to begin data science exploration into fire detection and eventually fire prediction. My goal in this project is to create a convolutional neural network to accurately identify forest fires in images.
+The past two weeks left many states in smoke (or worse...) and I was encouraged to begin exploration of fire detection and eventually fire prediction. My goal in this project is to create a convolutional neural network to accurately identify forest fires in images. Readers can follow along in the Google Colab notebook in the scr folder or look at the inidividual .py files organized amongst resources and src folders.
 
 # Data
 
@@ -29,13 +29,13 @@ Kaggle fire images dataset: https://www.kaggle.com/phylake1337/fire-dataset
 
 # Image Preprocessing
 
-The initial dataset is imbalanced. To remedy this, we have several options:
+The initial dataset is imbalanced. To remedy this, I have several options:
 
   * Web scrap/download additional nature images from the internet
   * Generate augmented images of the nature images already in the dataset
   * Undersample from the fire class of images 
   
-We will generate augmented images. In the resources folder, readers can find 'gen_images.py' by which they can generate augmented images for either fire or non fire classes. This file assumes there is a path to one data folder containing both fire_images and non_fire_images subfolders and that the image formats are .png.
+I opted for generating augmented images. In the resources folder, readers can find 'gen_images.py' by which they can generate augmented images for either fire or non fire classes. The file assumes there is a path to one data folder containing both fire_images and non_fire_images subfolders and that the image formats are .png.
 
 Examples of images comprising the dataset:
  <p align="center">
@@ -44,9 +44,9 @@ Examples of images comprising the dataset:
 
 # CNN Model 1
 
-I constructed a first convolutional neural network based of this keras blog post: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
+I constructed a first convolutional neural network based off the keras blog post for "Building Powerful Image Classification Models Using Very Little Data." https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
-Code for this model can be found in resources as 'model1.py'. Note that this file uses a flow_from_directory image generator like the blog post.
+Code for this model can be found in resources as 'model1.py'. Note that this file uses a flow_from_directory image generator.
 
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_summary.png" width="50%" height="50%"/>
@@ -66,33 +66,43 @@ This model has o.k. training and test accuracy and is doing slightly better than
  </p>
 
 This model's results become less reliable when we look at the ROC curve and corresponding confusion matrix:
-
+```
 [[ 59  93]
  [ 58 112]]
-
+```
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_roccurve.jpeg" width="50%" height="50%" />
  </p>
 
 # CNN Model 2
 
-The second convolutional neural network references a Tensorflow classification tutorial: https://www.tensorflow.org/tutorials/images/classification
+The second convolutional neural network references a Tensorflow classification tutorial. https://www.tensorflow.org/tutorials/images/classification
 
-Code for this model can be found in resources as 'model2.py'. Note that this file uses a image_dataset_from_directory image generator like the blog post. This method is followed in the Google Colab notebook for following along.
+Code for this model can be found in resources as 'model2.py'. Note that this file uses a image_dataset_from_directory image generator. This same method is used in the Google Colab notebook.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/m2_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_summary.png" />
  </p>
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc50epopch.jpeg" />
  </p>
 
-This mode performs much better than the first CNN model and accurately identifies the two image classes as illustrated below.
+This mode performs much better than the first CNN model. Evaluated on hold-out images:
 
+ * Loss: 0.16
+ * Accuracy: 0.94
+ 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_roccurve.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions50epoch.jpeg" />
  </p>
+ 
+However this model is not tuned for the default threshold = 0.5 as we can see from the confusion matrix and ROC curve.
 
-# ROC Curves & Confusion Matrix
-
+```
+[[63 89]
+ [79 91]]
+```
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_roccurve50epoch.png" width="50%" height="50%" />
+ </p>
