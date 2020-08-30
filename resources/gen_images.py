@@ -7,22 +7,6 @@ from PIL import ImageFile, Image
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from tqdm import tqdm
 
-'''
-The gen_images function was initially used to generate augmented images using the ImageDataGenerator defined below.
-
-I had planned to convert all these images to arrays, append the 'fire' and 'nonfire' arrays to one giant matrix X.
-Similarly, I was creating a 'y' labels array based on the folder the images came out of.
-
-This was crashing my kernel and I figured it was too much for my computer's memory.
-
-I then transitioned to the blog's (https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)
-method of generating augmented images on the fly in the the model's .fit
-
-I used gen_images in main.ipynb to generate about ~800-1,200 augmented images for each class.
-
-Code in main.ipynb also reflects my manual 'im_to_array' function and the attempt to save the arrays that was crashing my kernel.
-'''
-
 datagen = ImageDataGenerator(
         rotation_range=40,
         width_shift_range=0.2,
@@ -37,7 +21,14 @@ def gen_images(path, num, fire):
     '''
     Reads in image, coverts to array, reshapes, applies datagen 4 times.
     Repeats num times.
+
+    INPUT
+    -----
+    path: string; path to data folder from gen_images.py location
+    num: int; second to last image to augment
+    fire: boolean; if True, augment/generate fire images; if False, augment/generate non_fire images
     '''
+    
     if fire:
         for i in tqdm(range(1, num+1)):
             
