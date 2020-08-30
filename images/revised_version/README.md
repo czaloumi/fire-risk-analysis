@@ -58,7 +58,17 @@ Code for this model can be found in resources as 'model1.py'. Note that this fil
 
 This model has o.k. training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly. Evaluated on hold-out images results:
 
- * Loss: 0.63  * Accuracy: 0.69
+ * Loss: 0.63
+ * Accuracy: 0.69
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_predictions50epoch.jpeg" />
+ </p>
+
+This model's results become less reliable when we look at the ROC curve and corresponding confusion matrix:
+
+[[ 59  93]
+ [ 58 112]]
 
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_predictions50epoch.jpeg" />
@@ -81,7 +91,7 @@ Code for this model can be found in resources as 'model2.py'. Note that this fil
 This mode performs much better than the first CNN model and accurately identifies the two image classes as illustrated below.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_roccurve.jpeg" />
  </p>
 
 # ROC Curves & Confusion Matrix
