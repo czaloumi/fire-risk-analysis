@@ -42,4 +42,21 @@ Examples of images comprising the dataset:
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/test_image_examples.jpeg" />
  </p>
 
+# CNN Model 1
 
+I constructed a first convolutional neural network based of this keras blog post:
+https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/old/m1of_lasttry_summary.png" />
+ </p>
+ 
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m1_loss_acc.jpeg" />
+ </p>
+
+This model has very low training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly.
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m1_predictions.jpeg" />
+ </p>
