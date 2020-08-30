@@ -71,7 +71,7 @@ This model's results become less reliable when we look at the ROC curve and corr
  [ 58 112]]
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_roccurve.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_roccurve.jpeg" width="75%" height="75%" />
  </p>
 
 # CNN Model 2
