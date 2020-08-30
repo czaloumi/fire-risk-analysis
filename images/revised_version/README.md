@@ -10,7 +10,9 @@ Images for new README to replace initial project submitted 8/28/2020.
 #### Galvanize DSI Capstone 2
 *Last update: 8/30/2020*
 
-![title](images/cawildfire.jpeg)
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/cawildfire.jpeg" />
+ </p>
 
 # Background & Motivation
 
@@ -36,7 +38,6 @@ The initial dataset is imbalanced. To remedy this, we have several options:
 We will generate augmented images. In the resources folder, readers can find 'gen_images.py' by which they can generate augmented images for either fire or non fire classes. This file assumes there is a path to one data folder containing both fire_images and non_fire_images subfolders and that the image formats are .png.
 
 Examples of images comprising the dataset:
-
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/test_image_examples.jpeg" />
  </p>
