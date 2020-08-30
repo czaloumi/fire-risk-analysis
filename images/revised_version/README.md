@@ -55,7 +55,7 @@ https://blog.keras.io/building-powerful-image-classification-models-using-very-l
  <img src="https://github.com/czaloumi/fire/blob/master/images/m1_loss_acc.jpeg" />
  </p>
 
-This model has very low training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly.
+This model has very low training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly. From the looks of it, the model can identify when there is not fire in images as it accurately identifies no fire in the nature images, however it cannot identify fire in the fire iamages. This may mean the model is identifying something in the nature images that is not present in the fire images. 
 
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/m1_predictions.jpeg" />
