@@ -49,7 +49,7 @@ I constructed a first convolutional neural network based of this keras blog post
 Code for this model can be found in resources as 'model1.py'. Note that this file uses a flow_from_directory image generator like the blog post.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/m1of_lasttry_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_summary.png" width="50%" height="50%"/>
  </p>
  
  <p align="center">
