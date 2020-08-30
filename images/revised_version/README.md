@@ -44,8 +44,7 @@ Examples of images comprising the dataset:
 
 # CNN Model 1
 
-I constructed a first convolutional neural network based of this keras blog post:
-https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
+I constructed a first convolutional neural network based of this keras blog post: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/old/m1of_lasttry_summary.png" />
@@ -60,3 +59,22 @@ This model has very low training and test accuracy and is doing slightly better 
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/m1_predictions.jpeg" />
  </p>
+
+# CNN Model 2
+
+The second convolutional neural network references a Tensorflow classification tutorial: https://www.tensorflow.org/tutorials/images/classification
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/old/m2_summary.png" />
+ </p>
+ 
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc.jpeg" />
+ </p>
+
+This mode performs much better than the first CNN model and accurately identifies the two image classes as illustrated below.
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions.jpeg" />
+ </p>
+
