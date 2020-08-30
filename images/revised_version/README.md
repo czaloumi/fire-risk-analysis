@@ -53,7 +53,7 @@ Code for this model can be found in resources as 'model1.py'. Note that this fil
  </p>
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/m1_loss_acc.jpeg" width="75%" height="75%" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_loss_acc50epoch.jpeg" />
  </p>
 
 This model has very low training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly. From the looks of it, the model can identify when there is not fire in images as it accurately identifies no fire in the nature images, however it cannot identify fire in the fire iamages. This may mean the model is identifying something in the nature images that is not present in the fire images. 
