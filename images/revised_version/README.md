@@ -78,31 +78,36 @@ This model's results become less reliable when we look at the ROC curve and corr
 
 The second convolutional neural network references a Tensorflow classification tutorial. https://www.tensorflow.org/tutorials/images/classification
 
-Code for this model can be found in resources as 'model2.py'. Note that this file uses a image_dataset_from_directory image generator. This same method is used in the Google Colab notebook.
+Code for this model can be found in resources as 'model2.py'. This model was defined with a best-weights checkpoint, model save checkpoint, and early stop checkpoint. Note that this file uses a image_dataset_from_directory image generator. This same method is used in the Google Colab notebook.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_summary.png" width="50%" height="50%" />
  </p>
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc50epopch.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc_es.jpeg" />
  </p>
 
-This mode performs much better than the first CNN model. Evaluated on hold-out images:
+This model performs much better than the first CNN model. Evaluated on hold-out images:
 
- * Loss: 0.16
- * Accuracy: 0.94
+ * Loss: 0.19
+ * Accuracy: 0.92
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions50epoch.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions_es.jpeg" />
  </p>
  
 However this model is not tuned for the default threshold = 0.5 as we can see from the confusion matrix and ROC curve.
 
 ```
-[[63 89]
- [79 91]]
+[[ 73  79]
+ [ 65 100]]
 ```
  <p align="center">
  <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_roccurve50epoch.png" width="50%" height="50%" />
  </p>
+
+# Optimal Threshold Tuning
+
+In order to find the optimal threshold for Model 2, I first predicted class labels and then evaluated them using the F1 Score, which is the harmonic mean of precision and recall. 
+
