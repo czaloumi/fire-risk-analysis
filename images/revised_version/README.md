@@ -104,7 +104,7 @@ However this model is not tuned for the default threshold = 0.5 as we can see fr
  [ 65 100]]
 ```
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_roccurve50epoch.png" width="50%" height="50%" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_roccurve_es.png" width="50%" height="50%" />
  </p>
 
 # Optimal Threshold Tuning
