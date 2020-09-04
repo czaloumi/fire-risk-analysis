@@ -1,7 +1,3 @@
-Updated 8/30/2020
-
-Images for new README to replace initial project submitted 8/28/2020.
-
 **********************************************
 # Forest Fire Detection
 **********************************************
@@ -11,7 +7,7 @@ Images for new README to replace initial project submitted 8/28/2020.
 *Last update: 8/30/2020*
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/cawildfire.jpeg" width="75%" height="75%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/cawildfire.jpeg" width="75%" height="75%"/>
  </p>
 
 # Background & Motivation
@@ -39,7 +35,7 @@ I opted for generating augmented images. In the resources folder, readers can fi
 
 Examples of images comprising the dataset:
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/test_image_examples.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/test_image_examples.jpeg" />
  </p>
 
 # CNN Model 1
@@ -49,11 +45,11 @@ I constructed a first convolutional neural network based off the keras blog post
 Code for this model can be found in resources as 'model1.py'. Note that this file uses a flow_from_directory image generator.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_summary.png" width="50%" height="50%"/>
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m1_summary.png" width="50%" height="50%"/>
  </p>
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_loss_acc50epoch.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m1_loss_acc50epoch.jpeg" />
  </p>
 
 This model has o.k. training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly. Evaluated on hold-out images results:
@@ -62,7 +58,7 @@ This model has o.k. training and test accuracy and is doing slightly better than
  * Accuracy: 0.69
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_predictions50epoch.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images//m1_predictions50epoch.jpeg" />
  </p>
 
 This model's results become less reliable when we look at the ROC curve and corresponding confusion matrix:
@@ -81,11 +77,11 @@ The second convolutional neural network references a Tensorflow classification t
 Code for this model can be found in resources as 'model2.py'. This model was defined with a best-weights checkpoint, model save checkpoint, and early stop checkpoint. Note that this file uses a image_dataset_from_directory image generator. This same method is used in the Google Colab notebook.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_summary.png" width="50%" height="50%" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m2_summary.png" width="50%" height="50%" />
  </p>
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc_es.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m2_loss_acc_es.jpeg" />
  </p>
 
 This model performs much better than the first CNN model. Evaluated on hold-out images:
@@ -94,7 +90,7 @@ This model performs much better than the first CNN model. Evaluated on hold-out 
  * Accuracy: 0.92
  
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions_es.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m2_predictions_es.jpeg" />
  </p>
  
 However this model is not tuned for the default threshold = 0.5 as we can see from the confusion matrix and ROC curve.
@@ -104,7 +100,7 @@ However this model is not tuned for the default threshold = 0.5 as we can see fr
  [ 65 100]]
 ```
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_roccurve50epoch.png" width="50%" height="50%" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/m2_roccurve50epoch.png" width="50%" height="50%" />
  </p>
 
 # Optimal Threshold Tuning
