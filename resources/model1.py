@@ -11,8 +11,21 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_im
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Activation, Dropout, Flatten, Dense
 from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.callbacks import ModelCheckpoint
 from PIL import ImageFile
+from PIL import ImageFile, Image
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+import shutil
+from shutil import copyfile
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+import random
+
+# Note: if you run this cell more than once, you will want to rename:
+# weights originally named 'm1_bestweights.hdf5'
+# model originally named 'm1.h5'
+# loss & accuracy plot originally named: 'm1_loss_acc.jpeg'
+# predictions plot: 'm1_heres_the_predictions.jpeg'
 
 fire_path = '../data/fire_images'
 notfire_path = '../data/non_fire_images'
@@ -75,7 +88,7 @@ def load_data(path1=fire_path, path2=notfire_path):
 
 def model(activation='sigmoid', num_classes=1, input_shape=(256, 256, 3)):
     model = Sequential()
-    model.add(Conv2D(32, (3,3), input_shape=input_shape) 
+    model.add(Conv2D(32, (3,3), input_shape=input_shape))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
@@ -136,7 +149,7 @@ def train_model(model, batch_size, epochs):
     
     # Checkpoints to identify best weights
     checkpoint = ModelCheckpoint(
-            filepath='best_weights.hdf5',
+            filepath='m1_best_weights.hdf5',
             monitor = 'val_accuracy',
             verbose=1,
             save_best_only=True)
@@ -245,16 +258,16 @@ if __name__ == "__main__":
 
     print(model.summary())
 
-    save_model(model, 'model1.h5')
+    save_model(model, 'm1.h5')
 
     eval(model)
 
     fig, ax = plt.subplots(1,2, figsize=(10,6))
     plot_loss_val(ax, history)
     fig.legend()
-    fig.savefig('../images/model1_loss_acc.jpeg')
+    fig.savefig('../images/m1_loss_acc.jpeg')
 
     fig, ax = plt.subplots(2,3, figsize=(10,6))
     fig.subplots_adjust(wspace=.05)
     show_me_the_predictions(ax, model)
-    fig.savefig('../images/model1_heres_the_predictions.jpeg')
+    fig.savefig('../images/m1_heres_the_predictions.jpeg')

@@ -11,7 +11,7 @@ def load_data(path1=fire_path, path2=notfire_path):
     '''
     This file assumes you have downloaded the kaggle fire and not fire images into the data folder with subfolders:
         'fire_images'  and  'non_fire_images'
-
+        And that you wish to use ImageGenerators & the flow from directory method to generate train, test, and validation images.
     OUTPUTS
     -------
         * none: creates new files in data folder: 'train', 'test', 'val'
