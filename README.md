@@ -103,7 +103,25 @@ However this model is not tuned for the default threshold = 0.5 as we can see fr
  <img src="https://github.com/czaloumi/fire/blob/master/images/m2_roccurve50epoch.png" width="50%" height="50%" />
  </p>
 
-# Optimal Threshold Tuning
+**********************************************
+# Next Steps
+**********************************************
 
-In order to find the optimal threshold for Model 2, I first predicted class labels and then evaluated them using the F1 Score, which is the harmonic mean of precision and recall. 
+# Optimal Threshold Tuning and Transfer Learning
+
+I have several options for making Model 2 more accuracte:
+
+ 1. Tune the prediction threshold to yield the best true positive rate.
+ 2. Transfer learning from a more robustly trained neural network like ImageNet.
+
+# Layer Visualization
+
+Using the keras-vis package of tensorflow, I would like to visualize the last output layer to determine what Model 2 is picking up on in the images.
+
+# Further Research
+
+Fire detection is incredibly important and is becoming more pressing as we experience a cyclical routine to forest fires. For example, every year, 3 months of the year, California is on fire and thousands lose their homes. That smoke blows to other parts of the country and creates horrible living conditions so that people are locked inside or hospitalized because they cannot breath. I am interested in passing satellite images of Earth through a more robust convolutional neural networks to determine if there is in fact a fire. I would like to build upon that model so that it takes into account other landscape features including but not limited to: weather conditions, plant life, fire history, and surrounding infrastrucutre. This way we could determine areas of high risk and monitor them closely for signs of fire starting. 
+
+Lastly, as I get more data science tools under my belt, I would like to use similar landscape features to predict fire spread.
+
 
