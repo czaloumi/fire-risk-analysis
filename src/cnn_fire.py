@@ -253,7 +253,7 @@ if __name__ == "__main__":
 
     print(model.summary())
 
-    #save_model(model, 'fire_trained_model.h5')
+    save_model(model, 'fire_trained_model.h5')
 
     eval(model)
 
