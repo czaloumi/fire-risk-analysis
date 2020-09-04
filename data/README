@@ -1,7 +1,13 @@
 Images can be downloaded here: https://www.kaggle.com/phylake1337/fire-dataset
 
-** Download images into THIS data folder!
-** fire images in a subfolder named 'fire_images'
-** not fire images in a subfolder named 'non_fire_images'
+If you are planning to run fire_detection.ipynb:
+  ** Download images and zip them to a file named 'collab.zip'
+  ** Upload 'collab.zip' to your Google Drive
+  
+If you are planning to run cnn_fire.py OR model1.py: 
 
-This is important so that scripts work to separate out into test-train-val folders :)
+  ** Download images into THIS data folder!
+  ** fire images in a subfolder named 'fire_images'
+  ** not fire images in a subfolder named 'non_fire_images'
+
+  This is important so that scripts work to separate out into test-train-val folders :)
