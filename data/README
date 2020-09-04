@@ -4,7 +4,7 @@ If you are planning to run fire_detection.ipynb:
   ** Download images and zip them to a file named 'collab.zip'
   ** Upload 'collab.zip' to your Google Drive
   
-If you are planning to run cnn_fire.py OR model1.py: 
+If you are planning to run any of the resources .py files that use the .flow_from_directory image generator method: 
 
   ** Download images into THIS data folder!
   ** fire images in a subfolder named 'fire_images'
