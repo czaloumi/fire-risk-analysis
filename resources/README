@@ -1,23 +1,3 @@
-To follow my project, in src you have two options to bypass all steps below:
- 1. Run fire_detection.ipynb in a Google Colab notebook.
- 2. Run cnn_fire.py then run image_dataset_from_dir.py.
+To follow my project, in src open fire_detection.ipynb in a Google Colab notebook.
 
-These are here for reference and were used throughout the week.
-
-Initially, to follow this project, you would have needed to run the files in the following order:
-
-1. train_test_val.py
-  * separates fire_images and non_fire_images downloaded from kaggle into a train, test, and val folder with corresponding fire and non-fire subfolders.
-  * you will need to run this file if you would like to run model1.py since it uses a flow_from_directory method to generate images from the files built in this .py file
-  
-2. model1.py *optional*
-  * optional first model following keras blog post: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html 
-  
-3. cnn_model2.py
-  * best model
-  * saves weights according to checkpoint
-
-Other files (do not need to be run):
- * cleaning_folders.py : troubleshooting file; after finding non fire images in my fire folders, used this file to clean
- * gen_images : original method I used to generate images; bypassed this step when it was killing computer's memory from saving too many image arrays
- * keras_vis_visual.py : not working yet
+You will need to have downloaded the dataset referencing the data folder's README.
