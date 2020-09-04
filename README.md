@@ -1,18 +1,24 @@
+Updated 8/30/2020
+
+Images for new README to replace initial project submitted 8/28/2020.
+
 **********************************************
 # Forest Fire Detection
 **********************************************
 
 #### Author: Chelsea Zaloumis
 #### Galvanize DSI Capstone 2
-*Last update: 8/22/2020*
+*Last update: 8/30/2020*
 
-![title](images/cawildfire.jpeg)
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/cawildfire.jpeg" width="75%" height="75%"/>
+ </p>
 
 # Background & Motivation
 
-Today (8/22/2020), 92 forest fires are burning on approximately 1.5 million acres in 13 states. There are currently more than 24,000 wildland firefighters assigned and distributed to tackle these incidents according to The National Interagency Fire Center. Forest fires are not only destructive and dangerous, but their impact lingers with unhealthy air quality. 
+Today (August 2020), 92 forest fires are burning on approximately 1.5 million acres in 13 states. There are currently more than 24,000 wildland firefighters assigned and distributed to tackle these incidents according to The National Interagency Fire Center. Forest fires are not only destructive and dangerous, but their impact lingers with unhealthy air quality. 
 
-The past two weeks left many states in smoke and I was encouraged to begin data science exploration into fire detection and eventually fire prediction. My goal in this project is to create a convolutional neural network to accurately identify forest fires from images.
+The past two weeks left many states in smoke (or worse...) and I was encouraged to begin exploration of fire detection and eventually fire prediction. My goal in this project is to create a convolutional neural network to accurately identify forest fires in images. Readers can follow along in the Google Colab notebook in the scr folder or look at the inidividual .py files organized amongst resources and src folders.
 
 # Data
 
@@ -23,106 +29,85 @@ Kaggle fire images dataset: https://www.kaggle.com/phylake1337/fire-dataset
 
 # Image Preprocessing
 
-The two classes are very imbalanced and the dataset overall is quite tiny, so I generated (resources > gen_images.py) additional images bringing my total dataset to 1,630 'fire' images and 1,525 'not fire' images using the datagenerator below. The images below are examples of what comprised my dataset.
+The initial dataset is imbalanced. To remedy this, I have several options:
 
+  * Web scrap/download additional nature images from the internet
+  * Generate augmented images of the nature images already in the dataset
+  * Undersample from the fire class of images 
+  
+I opted for generating augmented images. In the resources folder, readers can find 'gen_images.py' by which they can generate augmented images for either fire or non fire classes. The file assumes there is a path to one data folder containing both fire_images and non_fire_images subfolders and that the image formats are .png.
+
+Examples of images comprising the dataset:
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/view_array_ex2x3.jpeg" />
- </p>
- 
- # A not so *hot* CNN Model
- 
-Following this blog post: https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html I created ImageGenerators for training and testing images using the flow from directory method.
-
-I organized my data folders from:
-
-        * fire
-        * not fire
-        
- to:
- 
-       * train         ->       fire & not fire
-       * val           ->       fire & not fire
-       * test          ->       fire & not fire
- 
-
-I then trained the following neural network (resources > cnn_model1.py) which overfit to my training data (shown below in the high training accuracy).
-
- <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/m1of_lasttry_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/test_image_examples.jpeg" />
  </p>
 
- ![title3](images/old/overfittingmodel.jpeg)
- 
-Deep neural networks are prone to overfit on training data, and neural network ensembles are arguably the best cure to overfitting. However a quicker, cheaper, and very effective alternative method is to simulate having a large number of different network architectures by randomly dropping out nodes during training i.e. DROPOUT. When you apply dropout to a layer it randomly drops out (by setting the activation to zero) a number of output units from the layer during the training process. Dropout has one input in the form of a float that represents the fraction of output units to randomly drop from the applied layer. Increasing the dropout from 0.5 to 0.8 yielded a model that wasn't overfitting but performed poorly. Evaluating this model on hold-out images resulted in accuracy no better than flipping a coin/guessing. I realized something was wrong with my images...  
+# CNN Model 1
 
- ![title4](images/old/softmaxdropoutmodel.jpeg)
+I constructed a first convolutional neural network based off the keras blog post for "Building Powerful Image Classification Models Using Very Little Data." https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
 
-Model evaluated on unseen hold-out images results:
+Code for this model can be found in resources as 'model1.py'. Note that this file uses a flow_from_directory image generator.
 
-        Loss: 2.1768    Accuracy: 0.5000
-
-Inspecting my newly constructed train, test, and val folders, I found the test and val *fire* subfolders filled with *non fire* images! This was a small err on my part that led to my model not understanding what it was detecting. Whoops...
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/tenor.gif" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_summary.png" width="50%" height="50%"/>
+ </p>
+ 
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_loss_acc50epoch.jpeg" />
  </p>
 
-# A *HOT* CNN Model
+This model has o.k. training and test accuracy and is doing slightly better than guessing for fire in images. See example images below with their corresponding label and if the model identified fire correctly. Evaluated on hold-out images results:
 
-After emptying the *non fire* images from my *fire* folders and filling them randomly with fire images, I built a new neural network (src > cnn_fire.py), not all that different from the first model except for the addition of three more dropout layers (0.5) after each convolutional 2D layer.
+ * Loss: 0.63
+ * Accuracy: 0.69
+
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/m2_summary.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_predictions50epoch.jpeg" />
  </p>
-This new model predicted beautifully with several runs reaching a validation accuracy of 98%. Below is the model evaluated on unseen hold-out images:
 
- ![title8](images/old/m2.jpeg)
-
-        Loss: 0.2823    Accuracy: 0.9619
- 
-This is better illustrated when we look at the images it was fed and compare it's prediction. Although there's only 6 images displayed, they accurately illustrate images that are easy to classify vs. the one image the model did not classify correctly. The image the model couldn't detect fire in has a small area of fire with plenty of smoke. In comparison to the other 'non-fire' images, it looks very similar to fog.
-
- ![title9](images/old/m2testonholdout.jpeg)
-
-# Overcoming Challenges with a new Data Generator
-
-While training my new HOT model, I received warnings of "Shuffle Buffer" that notified me between epochs of each buffer being shuffled/filled. This was taking my computer up to an hour to run 10 epochs. After some research, I came to the understanding that my ImageGenerator objects were reshuffling my entire dataset (~3,000 images) between each epoch which is very taxing on a computer. The solution is setting a shuffle, and prefetching data with the first epoch. ImageGenerators are not capable of this however the 'image_dataset_from_directory' generating method is!
-
-Following this Tensorflow tutorial: https://www.tensorflow.org/tutorials/images/classification
-
-I defined new train and test data generators to bypass saving image arrays to my local computer and the shuffling problem I was having. 'image_dataset_from_directory' outputs a data.Dataset object which is VERY easy to work with and I highly recommend it for anyone looking to generate data for a neural network. Some quick pointers:
-
-  * .cache() keeps the images in memory after they're loaded off disk during the first epoch.
-  * .prefetch(buffer_size) overlaps data preprocessing and model execution while training. Takes parameter 'buffer_size' that represents the max number of elements to be buffered with prefetching. 
-    i.e. I am creating a buffer of AT MOST 'buffer_size' images, and a background thread to fill that buffer in the background
-  * .shuffle() handles datasets that are too large to fit in memory and shuffles the amount of elements taken as its parameter.
-    * large shuffle > dataset   =>   uniform shuffle
-    * small shuffle = 1   =>  no shuffling
-
-It's important to shuffle your filenames & labels in advance OR ensure you are shuffling a number of images greater than the amount in any of your classes. 
-
-AUTOTUNE will automatically tune performance knobs on tf.data.experimental.OptimizationOptions(). So when using tf.data objects, tf.data builds a performance model of the input pipeline and uses these OptimizationOptions() to allocate CPU. tf.data builds a performance model of the input pipeline and runs an optimization algorithm to find a good allocation of its CPU budget across all tunable operations. It also tracks the time spent on these operations to further optimize!
-
+This model's results become less reliable when we look at the ROC curve and corresponding confusion matrix:
 ```
- AUTOTUNE = tf.data.experimental.AUTOTUNE
- X_train = X_train.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
- X_test = X_test.cache().prefetch(buffer_size=AUTOTUNE)
+[[ 59  93]
+ [ 58 112]]
 ```
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/giphy.gif" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m1_roccurve.jpeg" width="50%" height="50%" />
  </p>
+
+# CNN Model 2
+
+The second convolutional neural network references a Tensorflow classification tutorial. https://www.tensorflow.org/tutorials/images/classification
+
+Code for this model can be found in resources as 'model2.py'. This model was defined with a best-weights checkpoint, model save checkpoint, and early stop checkpoint. Note that this file uses a image_dataset_from_directory image generator. This same method is used in the Google Colab notebook.
 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/model_loss_acc_colab.jpeg" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_summary.png" width="50%" height="50%" />
  </p>
-
-Anywho... same model. WAY faster. No shuffle buffering. 98% validation accuracy. BAM.
-Google Colab and prefetching for the win!
-
-# Conclusion & Next Steps
-
-I would love to conduct further research on training a convolutional neural network on satellite images of fire/non-fire images. A CNN combined with other model methods for evaluating variables that contribute to fires starting (weather, plant life, etc.) would allow us to survey high-risk areas and predict how fires spread to better control them and reduce damage.
-
-One last note, before I keep bragging about a VALIDATION ACCURACY OF 98-100% (WOOOO), my last model's confusion matrix is displayed below which means my model has a different threshold for determining its probability predictions/outputs than I had in mind (0.5). I need to further investigate my model's prediction/evaluation threshold.
-
+ 
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/old/last.png" />
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_loss_acc_es.jpeg" />
  </p>
+
+This model performs much better than the first CNN model. Evaluated on hold-out images:
+
+ * Loss: 0.19
+ * Accuracy: 0.92
+ 
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_predictions_es.jpeg" />
+ </p>
+ 
+However this model is not tuned for the default threshold = 0.5 as we can see from the confusion matrix and ROC curve.
+
+```
+[[ 73  79]
+ [ 65 100]]
+```
+ <p align="center">
+ <img src="https://github.com/czaloumi/fire/blob/master/images/revised_version/m2_roccurve50epoch.png" width="50%" height="50%" />
+ </p>
+
+# Optimal Threshold Tuning
+
+In order to find the optimal threshold for Model 2, I first predicted class labels and then evaluated them using the F1 Score, which is the harmonic mean of precision and recall. 
+
