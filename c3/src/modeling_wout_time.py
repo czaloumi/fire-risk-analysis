@@ -81,7 +81,7 @@ class Fire(object):
           ax.plot(self.fpr, self.tpr, color='purple', label='{}: {}'.format(model, self.auc))
           return ax
         else:
-          ax.plot(self.fpr, self.tpr, color='red', label='{}: {}'format(model, self.auc))
+          ax.plot(self.fpr, self.tpr, color='red', label='{}: {}'.format(model, self.auc))
           return ax
 
     def plot_importance(self):
