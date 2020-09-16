@@ -57,7 +57,8 @@ class Fire(object):
           precision.append(assess(precision_score))
           recall.append(assess(recall_score))
           f1.append(assess(f1_score))
-        
+          
+        pickle.dump(model.best_estimator_, open("first_xgb", "wb"))
         return np.mean(accuracy), np.mean(precision), np.mean(recall), np.mean(f1)
       
     def get_rates(self):
