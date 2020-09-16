@@ -8,6 +8,7 @@ Original file is located at
 """
 
 # Imports
+import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -205,6 +206,4 @@ if __name__ == "__main__":
 
   grid_searcher = data_boost.grid_search(clf)
 
-
-
-
+  pickle.dump(grid_searcher.best_estimator_, open("xgb_log_reg.pickle", "wb"))
