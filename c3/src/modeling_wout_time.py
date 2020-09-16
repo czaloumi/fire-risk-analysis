@@ -201,7 +201,7 @@ if __name__ == "__main__":
                     'alpha': [0.25, 0.5]  # l1 regularization
                     }
 
-  clf = GridSearchCV(XGBClassifier(), parameter_grid, verbose= 1, scoring='recall', n_jobs=-1, cv=5)
+  clf = GridSearchCV(XGBClassifier(), parameter_grid, verbose= 1, scoring='recall', n_jobs=1, cv=5)
 
   grid_searcher = data_boost.grid_search(clf)
 
