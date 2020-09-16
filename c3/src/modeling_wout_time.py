@@ -207,4 +207,6 @@ if __name__ == "__main__":
 
   grid_searcher = data_boost.grid_search(clf)
 
-  pickle.dump(grid_searcher.best_estimator_, open("xgb_log_reg.pickle", "wb"))
+  pickle_out = open("xgb_log_reg.pickle", "wb")
+  pickle.dump(grid_searcher.best_estimator_, pickle_out)
+  pickle_out.close()
