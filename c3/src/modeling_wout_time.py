@@ -72,16 +72,16 @@ class Fire(object):
     
     def plot_roc(self, ax, model):
         if model == 'knn':
-          ax.plot(self.fpr, self.tpr, color='orange', label=f'{model}: {self.auc}')
+          ax.plot(self.fpr, self.tpr, color='orange', label='{}: {}'.format(model, self.auc))
           return ax
         elif model == 'forest':
-          ax.plot(self.fpr, self.tpr, color='green', label=f'{model}: {self.auc}')
+          ax.plot(self.fpr, self.tpr, color='green', label='{}: {}'.format(model, self.auc))
           return ax
         elif model == 'boost1':
-          ax.plot(self.fpr, self.tpr, color='purple', label=f'{model}: {self.auc}')
+          ax.plot(self.fpr, self.tpr, color='purple', label='{}: {}'.format(model, self.auc))
           return ax
         else:
-          ax.plot(self.fpr, self.tpr, color='red', label=f'{model}: {self.auc}')
+          ax.plot(self.fpr, self.tpr, color='red', label='{}: {}'format(model, self.auc))
           return ax
 
     def plot_importance(self):
