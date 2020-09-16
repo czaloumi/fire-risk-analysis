@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-whitegrid')
-from sklearn.model_selection import train_test_split, cross_validate, KFold
+from sklearn.model_selection import train_test_split, cross_validate, KFold, GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
