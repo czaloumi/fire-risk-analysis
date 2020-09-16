@@ -19,7 +19,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import roc_curve, auc,  precision_score, recall_score, accuracy_score, f1_score
 from sklearn.metrics import confusion_matrix
 from xgboost import plot_importance
-from sklearn.metrics import plot_confusion_matrix
+#from sklearn.metrics import plot_confusion_matrix
 
 
 class Fire(object):
@@ -203,7 +203,7 @@ if __name__ == "__main__":
 
   clf = GridSearchCV(XGBClassifier(), parameter_grid, verbose= 1, scoring='recall', n_jobs=-1, cv=5)
 
-  data_boost.grid_search(clf)
+  grid_searcher = data_boost.grid_search(clf)
 
 
 
