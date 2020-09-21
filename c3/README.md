@@ -20,6 +20,7 @@
  
 This project is comprised of two datasets, one containing satellite imagery of Southern and Northern California, and one containing California Iriigation Management Information System, CIMIS, conditions.
  
+## Satellite Images
  I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a Chrome Driver. Interested readers can view the source code at image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters.
  Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
  
@@ -29,14 +30,12 @@ This project is comprised of two datasets, one containing satellite imagery of S
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/test_image_examples.jpeg" width="75%" height="75%"/>
  </p>
-
- 
+## Environmental Conditions Data
 The conditions dataframe was downloaded from CIMIS California Department of Water Resources thanks to their weather stations: https://cimis.water.ca.gov/Default.aspx Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California counties and cities with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
 
 Stn Id |	Stn Name |	CIMIS Region |	Date |	ETo (in) |	Precip (in) |	Sol Rad (Ly/day) |	Avg Vap Pres (mBars) |	Max Air Temp (F) |	Min Air Temp (F) |	Avg Air Temp (F) |	Max Rel Hum (%) |	Min Rel Hum (%) |	Avg Rel Hum (%) |	Dew Point (F) |	Avg Wind Speed (mph) |	Wind Run (miles) |	Avg Soil Temp (F) | Target
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
 249	| Ripon	| San Joaquin Valley |	8/6/2020 |	0.25 |	0.0 |	680.0 |	18.3 |	96.3 |	51.7 |	72.8 |	99.0 |	46.0 |	66.0 |	60.9 |	4.2 |	100.3 |	70.3 |	0
-
 
 Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 rows of data.
 
@@ -69,7 +68,7 @@ Intermediate metric measurements while training and unfreezing layers show Xcept
 
 # XGBoost Classifier
 ## Model Comparison
-The conditions_df was modified further to fit classifier models on. Modifications included dropping time, station name, and CIMIS region. A baseline xgboost was built without hypertuning and obtained the following results. Prior to decided on xgboost, knn and random forest classifiers were compared. A gridsearch was conducted on an AWS EC2 instance to hypertune xgboost. The grid search was ran twice for approximately 9 hours each run.
+The conditions_df was modified further to fit classifier models on. Modifications included dropping time, station name, and CIMIS region. Prior to deciding on xgboost, knn and random forest classifiers were compared. Because random forest and xgboost performed best, a baseline xgboost was built without hypertuning and obtained the following results. A gridsearch was conducted on an AWS EC2 instance to hypertune xgboost. The grid search was ran twice for approximately 9 hours each run.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/knn_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/forest_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_cm.jpeg" width="30%" height="30%"/>
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" width="35%" height="35%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_comparison_roc.jpeg" width="40%" height="40%"/>
