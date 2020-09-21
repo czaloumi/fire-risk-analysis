@@ -26,6 +26,11 @@ This project is comprised of two datasets, one containing satellite imagery of S
  * Aqua MODIS (Moderate Resolution Imaging Spectroradiometer) Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  * Terra MODIS Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  
+ <p align="center">
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/test_image_examples.jpeg" width="75%" height="75%"/>
+ </p>
+
+ 
 The conditions dataframe was downloaded from CIMIS California Department of Water Resources thanks to their weather stations: https://cimis.water.ca.gov/Default.aspx Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv has the following columns:
 
 Stn Id |	Stn Name |	CIMIS Region |	Date |	ETo (in) |	Precip (in) |	Sol Rad (Ly/day) |	Avg Vap Pres (mBars) |	Max Air Temp (F) |	Min Air Temp (F) |	Avg Air Temp (F) |	Max Rel Hum (%) |	Min Rel Hum (%) |	Avg Rel Hum (%) |	Dew Point (F) |	Avg Wind Speed (mph) |	Wind Run (miles) |	Avg Soil Temp (F) | Target
