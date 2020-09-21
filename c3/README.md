@@ -31,10 +31,10 @@ This project is comprised of two datasets, one containing satellite imagery of S
  </p>
 
  
-The conditions dataframe was downloaded from CIMIS California Department of Water Resources thanks to their weather stations: https://cimis.water.ca.gov/Default.aspx Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv has the following columns:
+The conditions dataframe was downloaded from CIMIS California Department of Water Resources thanks to their weather stations: https://cimis.water.ca.gov/Default.aspx Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California counties and cities with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
 
 Stn Id |	Stn Name |	CIMIS Region |	Date |	ETo (in) |	Precip (in) |	Sol Rad (Ly/day) |	Avg Vap Pres (mBars) |	Max Air Temp (F) |	Min Air Temp (F) |	Avg Air Temp (F) |	Max Rel Hum (%) |	Min Rel Hum (%) |	Avg Rel Hum (%) |	Dew Point (F) |	Avg Wind Speed (mph) |	Wind Run (miles) |	Avg Soil Temp (F) | Target
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
 
-Overall this project entails approximately 2,000 satellite images and 
+Overall this project entails approximately 2,000 satellite images and 127,138 rows of data.
 
