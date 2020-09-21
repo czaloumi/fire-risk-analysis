@@ -22,7 +22,7 @@ This project is comprised of two datasets, one containing satellite imagery of S
  * USDA Forest Service Satellite Imagery: https://fsapps.nwcg.gov/afm/imagery.php
  * CIMIS Conditions: https://cimis.water.ca.gov/Default.aspx
 ## Satellite Images
- I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a Chrome Driver. Interested readers can view the source code at image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters.
+I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a Chrome Driver. Interested readers can view the source code at image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters.
  Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
  
  * Aqua MODIS (Moderate Resolution Imaging Spectroradiometer) Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
@@ -31,8 +31,9 @@ This project is comprised of two datasets, one containing satellite imagery of S
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/test_image_examples.jpeg" width="75%" height="75%"/>
  </p>
+
 ## Environmental Conditions Data
-The conditions dataframe was downloaded from CIMIS California Department of Water Resources thanks to their weather stations (https://cimis.water.ca.gov/Default.aspx). Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California counties and cities with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
+The conditions dataframe was downloaded from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. I chose daily data entries (https://cimis.water.ca.gov/Default.aspx). Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California counties and cities with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
 
 Stn Id |	Stn Name |	CIMIS Region |	Date |	ETo (in) |	Precip (in) |	Sol Rad (Ly/day) |	Avg Vap Pres (mBars) |	Max Air Temp (F) |	Min Air Temp (F) |	Avg Air Temp (F) |	Max Rel Hum (%) |	Min Rel Hum (%) |	Avg Rel Hum (%) |	Dew Point (F) |	Avg Wind Speed (mph) |	Wind Run (miles) |	Avg Soil Temp (F) | Target
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
@@ -80,6 +81,13 @@ The hyptertuned xgboost's results and feature importances as determined by gain.
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
 
+# Combining Models
+Once my models were up to par, I spent a long time attempting to build a new model which combined the two using keras's functional api. I was unable to modify inputs and outputs to get a functional api model working and instead combined model predictions for fire risk by weighting the two model predictions.
 
+Users can view the combined model's fire risk analysis deployed on an AWS EC2 instance. The combined models predict fire risk in the past (1/1/2018-9/13/2020) by entering a region: 'norcal' or 'socal' and a corresponding date. The model then outputs the risk for fire on that day given the amount of smoke detected in the satellite image and the risk for fire predicted given the day's conditions.
+
+# flask app link!
+# screenshot of flaskapp homepage
+# Next Steps
 
 modify further - look at conditions today - target if there is a fire in the next x amount of days
