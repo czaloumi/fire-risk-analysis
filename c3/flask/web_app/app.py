@@ -30,12 +30,10 @@ def combinedModels(region, date):
     '''
     Combines trained Xception XGBClassifier
     returns weighted prediction.
-
     PARAMETERS
     ----------
     region: 'norcal' or 'socal'; string
     date: b/t 1/1/2018 and 9/13/2020; string
-
     RETURNS
     -------
     weighted prediction for fire risk
