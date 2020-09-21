@@ -54,8 +54,12 @@ The baseline model failed to categorize very smokey images.
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_prediction_6.jpeg" width="55%" height="55%"/>
  </p>
 
-I chose Xception based off its modified depthwise separable convolution which builds on chained inception modules with two key differences: 1. perform 1×1 convolution first then channel-wise spatial convolution and 2. there is no non-linearity intermediate activation. The first of which does not contribute much to Xception's improved model architecture, while the 2nd attributes improved accuracy. Xception's model architecture:
+After establishing a baseline CNN model, I chose to transfer learn with Xception based off its modified depthwise separable convolution which builds on chained inception modules with two key differences: 1. perform 1×1 convolution first then channel-wise spatial convolution and 2. there is no non-linearity intermediate activation. The first of which does not contribute much to Xception's improved model architecture, while the 2nd attributes improved accuracy. The final Xception model has approximately 74 unfrozen layers that were slowly trained in 4 layer increments for 10 epochs. Xception's model architecture:
 
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
+ </p>
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/xception_metrics1.png" width="100%" height="100%"/>
  </p>
