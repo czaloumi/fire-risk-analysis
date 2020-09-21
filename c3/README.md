@@ -44,28 +44,22 @@ Data preparation resulted in approximately 2,000 satellite images (heavily imbal
 
 The image models used in this project base their improvements around improving recall. Recall was determined the most important metric because it encapsulates the models' abilities to determine fewer false negatives, ultimately a more costly endeavor (think not categorizing a satellite image as smoky when it is in fact smoky).
 
-A baseline CNN was built with poor recall ( true positive smoke in images / (true positive smoke in images + false negatives ) ) with results outlined below:
+A baseline CNN was built with poor recall ( true positive smoke in images / (true positive smoke in images + false negatives ) ) with results outlined below. The baseline model failed to categorize very smokey images.
 
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_loss_acc.jpeg" width="55%" height="55%"/> <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_roccurve_1.jpeg" width="35%" height="35%"/>
-
-The baseline model failed to categorize very smokey images.
-
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_prediction_6.jpeg" width="55%" height="55%"/>
  </p>
-
-After establishing a baseline CNN model, I chose to transfer learn with Xception based off its modified depthwise separable convolution which builds on chained inception modules with two key differences: 1. perform 1×1 convolution first then channel-wise spatial convolution and 2. there is no non-linearity intermediate activation. The first of which does not contribute much to Xception's improved model architecture, while the 2nd attributes improved accuracy. The final Xception model has approximately 74 unfrozen layers that were slowly trained in 4 layer increments for 10 epochs. Xception's model architecture:
-
+To improve on the baseline model, I chose to transfer learn with Xception based off its modified depthwise separable convolution which builds on chained inception modules with two key differences: 1. perform 1×1 convolution first then channel-wise spatial convolution and 2. there is no non-linearity intermediate activation. The first of which does not contribute much to Xception's improved model architecture, while the 2nd attributes improved accuracy. The final Xception model has approximately 74 unfrozen layers that were slowly trained in 4 layer increments for 10 epochs. Xception's model architecture:
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
  </p>
-
 Intermediate metric measurements while training and unfreezing layers show Xception already surpassing the baseline model's metrics. The final trained model's confusion matrix is displayed below. Final prediction examples on satellite imagery displayed below as well.
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
  <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="60%" height="60%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="50%" height="50%"/>
  </p>
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
