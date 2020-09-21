@@ -48,3 +48,8 @@ A baseline CNN was built with poor recall ( true positive smoke in images / (tru
 
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_loss_acc.jpeg" width="55%" height="55%"/> <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_roccurve_1.jpeg" width="35%" height="35%"/>
 
+The baseline model failed to categorize very smokey images.
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_prediction_6.jpeg" width="75%" height="75%"/>
+ </p>
