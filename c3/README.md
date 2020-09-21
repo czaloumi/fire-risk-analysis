@@ -76,8 +76,9 @@ Intermediate metric measurements while training and unfreezing layers show Xcept
 # XGBoost Classifier
 
 The conditions_df was modified further to fit an classifier models on. Prior to decided on xgboost, knn and random forest classifiers were compared.
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/knn_cm.jpeg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/forest_cm.jpeg" width="50%" height="50%"/> 
-<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" width="75%" height="75%"/>
+
+<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/knn_cm.jpeg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/forest_cm.jpeg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_cm.jpeg" width="50%" height="50%"/>
+<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" width="50%" height="50%"/>
 
 Modifications included dropping time, station name, and CIMIS region. A baseline xgboost was built without hypertuning and obtained the following results.
   <p align="center">
