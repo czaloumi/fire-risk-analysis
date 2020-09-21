@@ -8,20 +8,38 @@ Original file is located at
 """
 
 # Imports
-import pickle
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+from google.colab import auth
+from oauth2client.client import GoogleCredentials
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-whitegrid')
-from sklearn.model_selection import train_test_split, cross_validate, KFold, GridSearchCV
+from sklearn.model_selection import train_test_split, cross_validate, KFold
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.metrics import roc_curve, auc,  precision_score, recall_score, accuracy_score, f1_score
 from sklearn.metrics import confusion_matrix
 from xgboost import plot_importance
-#from sklearn.metrics import plot_confusion_matrix
+from sklearn.metrics import plot_confusion_matrix
 
+auth.authenticate_user()
+gauth = GoogleAuth()
+gauth.credentials = GoogleCredentials.get_application_default()
+drive = GoogleDrive(gauth)
+
+df = drive.CreateFile({'id': '1GeNGKsWNsDR2jS5V5kMADGxBMZz3jH8K'})
+df.GetContentFile('notime_df.csv')
+
+df = pd.read_csv('notime_df.csv')
+
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+df = df.dropna()
+
+print("Dataset has {} entries and {} features".format(*df.shape))
 
 class Fire(object):
     def __init__(self, df):
@@ -30,11 +48,6 @@ class Fire(object):
 
     def split(self):
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2, stratify=self.y)
-
-    def grid_search(self, gscv):
-        self.gscv = gscv
-        self.gscv.fit(self.X_train, self.y_train)        
-        return self.gscv
 
     def predict(self, model):
         self.model = model
@@ -48,7 +61,7 @@ class Fire(object):
         for train_index, test_index in kf.split(self.X_train):
           X_train_split, X_test_split = self.X_train.iloc[train_index], self.X_train.iloc[test_index]
           y_train_split, y_test_split = self.y_train.iloc[train_index], self.y_train.iloc[test_index]
-          self.model.fit(X_train_split, y_train_split)
+          self.model.fit(X_train_split, y_train_split, verbose=True)
           self.pred = self.model.predict(X_test_split)
 
           assess = lambda method, val=y_test_split, pred=self.pred: method(val, pred)
@@ -57,8 +70,7 @@ class Fire(object):
           precision.append(assess(precision_score))
           recall.append(assess(recall_score))
           f1.append(assess(f1_score))
-
-        pickle.dump(model, open("first_xgb", "wb"))
+        
         return np.mean(accuracy), np.mean(precision), np.mean(recall), np.mean(f1)
       
     def get_rates(self):
@@ -70,142 +82,200 @@ class Fire(object):
         return self.fpr, self.tpr, self.auc
 
     def cm(self):
-        return plot_confusion_matrix(self.model, self.X_test, self.y_test, cmap=plt.cm.Blues , normalize='true')
+        return plot_confusion_matrix(self.model, self.X_test, self.y_test, cmap=plt.cm.Purples , normalize='true')
     
     def plot_roc(self, ax, model):
         if model == 'knn':
-          ax.plot(self.fpr, self.tpr, color='orange', label='{}: {}'.format(model, self.auc))
+          ax.plot(self.fpr, self.tpr, color='orange', label=f'{model}: {self.auc}')
           return ax
         elif model == 'forest':
-          ax.plot(self.fpr, self.tpr, color='green', label='{}: {}'.format(model, self.auc))
+          ax.plot(self.fpr, self.tpr, color='green', label=f'{model}: {self.auc}')
           return ax
         elif model == 'boost1':
-          ax.plot(self.fpr, self.tpr, color='purple', label='{}: {}'.format(model, self.auc))
+          ax.plot(self.fpr, self.tpr, color='red', label=f'{model}: {self.auc}')
           return ax
         else:
-          ax.plot(self.fpr, self.tpr, color='red', label='{}: {}'.format(model, self.auc))
+          ax.plot(self.fpr, self.tpr, color='purple', label=f'{model}: {self.auc}')
           return ax
 
     def plot_importance(self):
         return plot_importance(self.model, max_num_features=15)
 
-if __name__ == "__main__":
-  #df = pd.read_csv('../data/notime_df.csv')
-  #df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+knn = KNeighborsClassifier()
+forest = RandomForestClassifier()
+boost = XGBClassifier()
 
-  #knn = KNeighborsClassifier()
-  #forest = RandomForestClassifier()
-  boost = XGBClassifier()
-  '''
-  df = pd.read_csv('../data/notime_df.csv')
-  df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+df = pd.read_csv('notime_df.csv')
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-  # K Nearest Neighbors
-  data_knn = Fire(df)
-  data_knn.split()
-  data_knn.predict(knn)
-  data_knn.get_rates()
-  
-  data_knn.cm()
-  plt.title('K Nearest Neighbors Confusion Matrix')
-  plt.grid(False)
-  plt.savefig('knn_cm.jpeg')
-  plt.show()
-  
-  df = pd.read_csv('../data/notime_df.csv')
-  df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+# K Nearest Neighbors
+data_knn = Fire(df)
+data_knn.split()
+data_knn.predict(knn)
+data_knn.get_rates()
+'''
+data_knn.cm()
+plt.title('K Nearest Neighbors Confusion Matrix')
+plt.grid(False)
+plt.savefig('knn_cm.jpeg')
+plt.show()
+'''
+df = pd.read_csv('notime_df.csv')
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-  # Random Forest
-  data_forest = Fire(df)
-  data_forest.split()
-  data_forest.predict(forest)
-  data_forest.get_rates()
-  
-  data_forest.cm()
-  plt.title('Random Forest Confusion Matrix')
-  plt.grid(False)
-  plt.savefig('forest_cm.jpeg')
-  plt.show()
-  '''
-  df = pd.read_csv('../data/notime_df.csv')
-  df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+# Random Forest
+data_forest = Fire(df)
+data_forest.split()
+data_forest.predict(forest)
+data_forest.get_rates()
+'''
+data_forest.cm()
+plt.title('Random Forest Confusion Matrix')
+plt.grid(False)
+plt.savefig('forest_cm.jpeg')
+plt.show()
+'''
+df = pd.read_csv('notime_df.csv')
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-  # XGBoost
-  data_boost = Fire(df)
-  data_boost.split()
-  data_boost.predict(boost)
-  data_boost.get_rates()
-  '''
-  data_boost.cm()
-  plt.title('XGBoost Confusion Matrix')
-  plt.grid(False)
-  plt.savefig('boost_cm.jpeg')
-  plt.show()
+# XGBoost
+data_boost = Fire(df)
+data_boost.split()
+data_boost.predict(boost)
+data_boost.get_rates()
+'''
+data_boost.cm()
+plt.title('XGBoost Confusion Matrix')
+plt.grid(False)
+plt.savefig('boost_cm.jpeg')
+plt.show()
 
-  
-  # ROC CURVE
-  fig, ax = plt.subplots(figsize=(10,10))
-  data_knn.plot_roc(ax, model='knn')
-  data_forest.plot_roc(ax, model='forest')
-  data_boost.plot_roc(ax, model='boost')
-  ax.set_title('ROC Curves')
-  ax.plot([0,1], [0,1], color ='k', linestyle='--')
-  ax.set_xlim([0.0, 1.0])
-  ax.set_ylim([0.0, 1.05])
-  ax.set_xlabel('False Positive Rate')
-  ax.set_ylabel('True Positive Rate')
-  ax.legend(loc="lower right")
-  plt.savefig('../images/mb_forest_roc_curves_first.jpeg')
-  fig.show()
+# Feature Importances
+data_boost.plot_importance()
+plt.savefig('feature_importances.jpeg')
+plt.show()
+'''
+# ROC CURVE
+fig, ax = plt.subplots(figsize=(10,10))
+data_knn.plot_roc(ax, model='knn')
+data_forest.plot_roc(ax, model='forest')
+data_boost.plot_roc(ax, model='boost')
+ax.set_title('ROC Curves')
+ax.plot([0,1], [0,1], color ='k', linestyle='--')
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+ax.set_xlabel('False Positive Rate')
+ax.set_ylabel('True Positive Rate')
+ax.legend(loc="lower right")
+plt.savefig('../images/mb_forest_roc_curves_first.jpeg')
+fig.show()
 
-  
-  # Compare to xgboost results: will need to have ran
-  # boost and boost2
-  fig, ax = plt.subplots(figsize=(10,10))
-  data_boost.plot_roc(ax, model='boost1')
-  data_boost2.plot_roc(ax, model='boost2')
-  ax.set_title('ROC Curves')
-  ax.plot([0,1], [0,1], color ='k', linestyle='--')
-  ax.set_xlim([0.0, 1.0])
-  ax.set_ylim([0.0, 1.05])
-  ax.set_xlabel('False Positive Rate')
-  ax.set_ylabel('True Positive Rate')
-  ax.legend(loc="lower right")
-  plt.savefig('boost_comparison_roc.jpeg')
-  fig.show()
+'''
+# Compare to results on previous dataset
+fig, ax = plt.subplots(figsize=(10,10))
+data_boost.plot_roc(ax, model='boost1')
+data_boost2.plot_roc(ax, model='boost2')
+ax.set_title('ROC Curves')
+ax.plot([0,1], [0,1], color ='k', linestyle='--')
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+ax.set_xlabel('False Positive Rate')
+ax.set_ylabel('True Positive Rate')
+ax.legend(loc="lower right")
+plt.savefig('boost_comparison_roc.jpeg')
+fig.show()
 
-  # Feature Importances
-  data_boost.plot_importance()
-  plt.savefig('feature_importances.jpeg')
-  plt.show()
-  
+# Feature Importances
+data_boost.plot_importance()
+plt.savefig('feature_importances.jpeg')
+plt.show()
+'''
 
-  feature_important = boost.get_booster().get_score(importance_type='gain')
-  keys = list(feature_important.keys())
-  values = list(feature_important.values())
+feature_important = boost.get_booster().get_score(importance_type='gain')
+keys = list(feature_important.keys())
+values = list(feature_important.values())
 
-  # Specifically gain!
-
-  data = pd.DataFrame(data=values, index=keys, columns=["gain"]).sort_values(by ="gain", ascending=True)
-  data.plot(kind='barh', color='r')
-  plt.title('XGBoost Feature Importance')
-  plt.show()
-  '''
+data = pd.DataFrame(data=values, index=keys, columns=["gain"]).sort_values(by ="gain", ascending=True)
+data.plot(kind='barh', color='r')
+plt.title('XGBoost Feature Importance')
+plt.show()
 
 
-  """XGBoost - Run later today"""
 
-  # Grid Search XGBoost
-  parameter_grid = {'max_depth': [2, 4, 6],
+
+
+"""XGBoost - Run later today"""
+
+# Grid Search XGBoost
+# Ran in EC2 instance
+'''
+parameter_grid = {
+                    'max_depth': [3, 9],
                     'n_estimators': [100, 900], 
-                    'learning_rate': [0.01],
+                    'learning_rate': [0.01, 0.1],
                     'lambda': [0.5, 0.8], # l2 regualrization
                     'alpha': [0.25, 0.5]  # l1 regularization
                     }
+clf = GridSearchCV(xgb.XGBClassifier(), parameter_grid, verbose= 1, scoring='recall', n_jobs=-1)
+'''
 
-  clf = GridSearchCV(XGBClassifier(), parameter_grid, verbose= 5, scoring='recall', n_jobs=1, cv=5)
+df = pd.read_csv('notime_df.csv')
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-  grid_searcher = data_boost.grid_search(clf)
+params = {'max_depth': 10,
+          'min_child_weight': 6,
+          'n_estimators': 900, 
+          'learning_rate': 0.01,
+          'lambda': 0.8,
+          'alpha': 0.5}
 
-  with open('gscv_xgb' +'.pkl', 'wb') as f:
-            pickle.dump(grid_searcher.best_estimator_, f)
+boost1 = XGBClassifier()
+boost2 = XGBClassifier(**params)
+
+df = pd.read_csv('notime_df.csv')
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+
+data_boost1 = Fire(df)
+data_boost1.split()
+data_boost1.predict(boost1)
+data_boost1.get_rates()
+
+df = pd.read_csv('notime_df.csv')
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+
+data_boost2 = Fire(df)
+data_boost2.split()
+data_boost2.predict(boost2)
+data_boost2.get_rates()
+
+data_boost2.cm()
+
+plt.title('XGBoost Confusion Matrix')
+plt.grid(False)
+plt.savefig('boost_cm.jpeg')
+plt.show()
+
+# Compare to results on previous dataset
+fig, ax = plt.subplots(figsize=(10,10))
+data_boost1.plot_roc(ax, model='boost1')
+data_boost2.plot_roc(ax, model='boost2')
+ax.set_title('ROC Curves')
+ax.plot([0,1], [0,1], color ='k', linestyle='--')
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+ax.set_xlabel('False Positive Rate')
+ax.set_ylabel('True Positive Rate')
+ax.legend(loc="lower right")
+plt.savefig('boost_comparison_roc.jpeg')
+fig.show()
+
+# Feature Importances
+feature_important = boost2.get_booster().get_score(importance_type='gain')
+keys = list(feature_important.keys())
+values = list(feature_important.values())
+
+data = pd.DataFrame(data=values, index=keys, columns=["gain"]).sort_values(by ="gain", ascending=True)
+data.plot(kind='barh', color='purple')
+plt.title('XGBoost Feature Importance')
+plt.show()
+
