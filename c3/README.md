@@ -78,15 +78,15 @@ Intermediate metric measurements while training and unfreezing layers show Xcept
 The conditions_df was modified further to fit classifier models on. Modifications included dropping time, station name, and CIMIS region. A baseline xgboost was built without hypertuning and obtained the following results. Prior to decided on xgboost, knn and random forest classifiers were compared.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/knn_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/forest_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_cm.jpeg" width="30%" height="30%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" width="40%" height="40%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" width="35%" height="35%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_comparison_roc.jpeg" width="35%" height="35%"/>
   </p>
 After fitting a baseline xgboost model, a grid search was performed on xgboost over an AWS EC2 instance. The grid search was ran twice for approximately 9 hours a piece. Comparison across baseline xgboost and hyptertuned xgboost and the hypertuned xgboost's confusion matrix is displayed:
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_comparison_roc.jpeg" width="35%" height="35%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="45%" height="45%"/><img 
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_gain.png" width="75%" height="75%"/>
   </p>
 
-https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost1_gain.png
-https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_gain.png
+
+
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="100%" height="100%"/> 
