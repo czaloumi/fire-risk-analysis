@@ -82,7 +82,7 @@ The conditions_df was modified further to fit classifier models on. Modification
   </p>
 After fitting a baseline xgboost model, a grid search was performed on xgboost over an AWS EC2 instance. The grid search was ran twice for approximately 9 hours a piece. Comparison across baseline xgboost and hyptertuned xgboost and the hypertuned xgboost's confusion matrix is displayed:
   <p align="center">
-  <img src="<https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_comparison_roc.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="50%" height="50%"/><img 
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_comparison_roc.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="50%" height="50%"/><img 
   </p>
 
 https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost1_gain.png
