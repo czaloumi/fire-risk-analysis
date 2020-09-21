@@ -53,3 +53,9 @@ The baseline model failed to categorize very smokey images.
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_prediction_6.jpeg" width="55%" height="55%"/>
  </p>
+
+I chose Xception based off its modified depthwise separable convolution which builds on chained inception modules with two key differences: 1. perform 1×1 convolution first then channel-wise spatial convolution and 2. there is no non-linearity intermediate activation. The first of which does not contribute much to Xception's improved model architecture, while the 2nd attributes improved accuracy. Xception's model architecture:
+
+ <p align="center">
+ <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
+ </p>
