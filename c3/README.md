@@ -60,10 +60,15 @@ After establishing a baseline CNN model, I chose to transfer learn with Xception
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
  </p>
 
-Intermediate metric measurements while training and unfreezing layers show Xception already surpassing the baseline model's metrics. The final trained model's confusion matrix is displayed below.
+Intermediate metric measurements while training and unfreezing layers show Xception already surpassing the baseline model's metrics. The final trained model's confusion matrix is displayed below. Final prediction examples on satellite imagery displayed below as well.
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="60%" height="60%"/>
  </p>
+  <p align="center">
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="75%" height="75%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="75%" height="75%"/> 
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction3.png" width="75%" height="75%"/> 
+   </p>
