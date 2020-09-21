@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.table {
+  text-align:center;
+}
+
+/*body {
+  background-image: url('https://wildfiretoday.com/wp-content/uploads/2019/10/KincadeFire_Sentinel2_1203pmPDT_10-2019-1200x740.jpg');
+  background-size: 100%;
+}*/
+
+
+
+   body{
+     background-image:url('https://wildfiretoday.com/wp-content/uploads/2019/10/KincadeFire_Sentinel2_1203pmPDT_10-2019-1200x740.jpg');
+     width:100%;
+
+    background-size: cover;
+   }
+
+   @media only screen and (max-width: 600px) {
+       body {
+           background-size: auto;
+       }
+   }
+
+
+
+.main {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 100px;
+  padding-bottom: 50px;
+}
+.main h1 {
+  font-size: 5em;
+}
+.main h2 {
+  font-size:3em;
+}
+.main p {
+  font-size:2em;
+}
+.buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+
+
+
+
+button {
+            padding: 1vh 2vw;
+            background-color: indianred;
+            color: white;
+            border-radius: 16px;
+            border-color: white; 
+            padding-left: 12px; 
+            padding-right: 12px; 
+            font-size: 16px; 
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: rgba(0,0,0,0);
+            color: indianred;
+            border-color: indianred;
+
+        }
+
+
+</style>
+
+
+
+
+
+<div class="overlay">
+
+</div>
+
+
+
+
+
+
+
+
+
+    <div class="main">
+      <center>
+      <div class="starter-template">
+        <h1>Fire Risk Analysis</h1>
+        <h2>Northern and Southern California</h2>
+        <h2>1/1/2018 - 9/13/2020</h2>
+      </div>
+
+      <p>
+      <select>
+        {% for each in dropdown_list %}
+          <option value="{{each}}">{{each}}</option>
+        {% endfor %}
+      </select>
+      </p> 
+
+      <p>
+      <form action="" method='post'>
+        <b><label for="date">Enter a date between 1/1/2018 and 9/13/2020:</label></b>
+        <br>
+        <input type="date" id="date" name="date" class="form-control" format="%-m/%-d/%Y" placeholder="MM-DD-YYYY">
+      </form>
+      </p>
+      
+      <p>
+      <form method="post">
+          <input type="submit" value="Fire away" >
+      </form>
+      </p>
+    </div>
+
+    </center>
+    </div>
+
+
+{% endblock %}
