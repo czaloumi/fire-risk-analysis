@@ -72,3 +72,26 @@ Intermediate metric measurements while training and unfreezing layers show Xcept
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="100%" height="100%"/> 
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
    </p>
+
+# XGBoost Classifier
+
+The conditions_df was modified further to fit an classifier models on. Prior to decided on xgboost, knn and random forest classifiers were compared.
+
+<table>
+  <tr>
+    <td> <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/knn_cm.jpeg"  alt="1" width = 360px height = 640px ></td>
+    <td><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/forest_cm.jpeg" alt="2" width = 360px height = 640px></td>
+   </tr> 
+   <tr>
+      <td><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" alt="3" width = 360px height = 640px></td>
+
+  </td>
+  </tr>
+</table>
+
+Modifications included dropping time, station name, and CIMIS region. A baseline xgboost was built without hypertuning and obtained the following results.
+  <p align="center">
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="100%" height="100%"/> 
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
+   </p>
