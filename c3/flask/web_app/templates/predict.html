@@ -98,9 +98,22 @@ button {
             <br><b>{{ risk }}</b></h2>
 
         <div class='disclaimer'>
-            <i>a little bit about the model weighted risks</i>
+            <i>risk is a weighted combination of the predictions below:</i>
           </div>
-      </div>
+        
+        <div class='xception-prediction'>
+            <img src = '{{ url }}' alt="xception-prediction", width="65%" height="65%">
+          </div>
+        </div>
+
+        <div class='gxboost-prediction'>
+          <i>Fire risk based on day's conditions: {{ conditions_risk }}</i>
+        </div>
+        <table class=table>
+          <tr>
+          {{ data | safe}}
+          </tr>
+        </table>
 
 
 
