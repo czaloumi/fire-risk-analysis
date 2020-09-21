@@ -99,7 +99,9 @@ button {
       </div>
 
       <p>
-      <select>
+      <form action="/predict" method='POST'>
+      <select name='region' id='select_region' class='form-control' style='max-width: 350px;' required>
+        <option selected='selected' value=''>Select a region*</option>
         {% for each in dropdown_list %}
           <option value="{{each}}">{{each}}</option>
         {% endfor %}
@@ -107,15 +109,12 @@ button {
       </p> 
 
       <p>
-      <form action="" method='post'>
         <b><label for="date">Enter a date between 1/1/2018 and 9/13/2020:</label></b>
         <br>
         <input type="date" id="date" name="date" class="form-control" format="%-m/%-d/%Y" placeholder="MM-DD-YYYY">
-      </form>
       </p>
       
       <p>
-      <form method="post">
           <input type="submit" value="Fire away" >
       </form>
       </p>

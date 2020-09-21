@@ -2,12 +2,16 @@ from flask import render_template, request, jsonify
 from flask import Flask
 import pandas as pd
 import numpy as np
+import glob
 import pickle
 import xgboost
 from xgboost import XGBClassifier
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-whitegrid')
 import seaborn as sns
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.preprocessing.image import img_to_array, load_img
 from tensorflow.keras.applications import Xception
 from tensorflow.keras.models import load_model
 from tkcalendar import DateEntry
@@ -31,8 +35,8 @@ def combinedModels(region, date):
     '''
 
     # Load models
-    boost = pickle.load(open("../../src/pima.pickle.dat", "rb"))
-    xception = load_model('../../src/xception_50epoch.h5')
+    boost = pickle.load(open("../../models/pima.pickle.dat", "rb"))
+    xception = load_model('../../models/xception_50epoch.h5')
     
     # Define Xception inputs
     batch_size = 16
@@ -90,7 +94,7 @@ def combinedModels(region, date):
     # Overall risk as weighted of Xception prediciton & XGBoost prediction
     risk = .8*(image_risk.ravel()[0]) + 0.2*conditions_risk
 
-    return render_template('predictions.html', region=region, date=date, risk=risk)
+    return risk
 
 @app.route('/', methods =['GET','POST'])    
 def index():
@@ -98,15 +102,16 @@ def index():
     return render_template('home.html', dropdown_list=dropdown_list)
 
 
-@app.route('/risk', methods=['GET','POST'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
-    button = request.form.get('value')
-    if button == 'Fire away':
-        region = request.select.get('value')
-        region = str(region)
-        date = request.form['date']
-        combinedModels(region, date)
+    region = request.form['region']
+    region = str(region)
+    date = request.form['date']
+    date = pd.to_datetime(date, format='%Y-%m-%d')
+    date = date.strftime('%-m/%-d/%Y')
 
+    risk = round(combinedModels(region, date),2)
+    return render_template('predict.html', region=region, date=date, risk=risk)
 
 
 if __name__ == "__main__":
