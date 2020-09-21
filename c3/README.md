@@ -90,9 +90,5 @@ Users can view the combined model's fire risk analysis soon to be deployed on an
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/flask_app2.png" width="100%" height="100%"/>
   </p>
 
-
-
-# screenshot of flaskapp homepage
-# Next Steps
-
-modify further - look at conditions today - target if there is a fire in the next x amount of days
+# RNN & Next Steps
+Unfortunately at this time I have not been able to get a RNN and LSTM working for a dataframe with multiple entries on the same date for more than one weather station. Moving forward, after training a RNN/LSTM to predict accurate fire risk given the previous few day's conditions, I will be able to predict today or the next few day's risk for fire.
