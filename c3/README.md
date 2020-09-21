@@ -42,8 +42,8 @@ Data preparation resulted in approximately 2,000 satellite images (heavily imbal
 
 # Xception
 
-The image models used in this project base their improvements around improving recall. Recall was determined the most important metric because it encapsulates the models' abilities to determine fewer false negatives, ultimately a more costly endeavor (think not categorizing a satellite image as smoky when it is in fact smoky). A baseline CNN was built with poor recall ( true positive smoke in images / (true positie smoke in images + false negatives ) ) with results outlined below:
+The image models used in this project base their improvements around improving recall. Recall was determined the most important metric because it encapsulates the models' abilities to determine fewer false negatives, ultimately a more costly endeavor (think not categorizing a satellite image as smoky when it is in fact smoky).
 
- <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_loss_acc.jpeg" width="50%" height="50%"/> <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_roccurve_1.jpeg" width="50%" height="50%"/>
- </p>
+A baseline CNN was built with poor recall ( true positive smoke in images / (true positive smoke in images + false negatives ) ) with results outlined below:
+
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_loss_acc.jpeg" width="50%" height="50%"/> <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_roccurve_1.jpeg" width="40%" height="40%"/>
