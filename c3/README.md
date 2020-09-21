@@ -84,9 +84,14 @@ The hyptertuned xgboost's results and feature importances as determined by gain.
 # Combining Models
 Once my models were up to par, I spent a long time attempting to build a new model which combined the two using keras's functional api. I was unable to modify inputs and outputs to get a functional api model working and instead combined model predictions for fire risk by weighting the two model predictions.
 
-Users can view the combined model's fire risk analysis deployed on an AWS EC2 instance. The combined models predict fire risk in the past (1/1/2018-9/13/2020) by entering a region: 'norcal' or 'socal' and a corresponding date. The model then outputs the risk for fire on that day given the amount of smoke detected in the satellite image and the risk for fire predicted given the day's conditions.
+Users can view the combined model's fire risk analysis soon to be deployed on an AWS EC2 instance. The combined models predict fire risk in the past (1/1/2018-9/13/2020) by entering a region: 'norcal' or 'socal' and a corresponding date. The model then outputs the risk for fire on that day given the amount of smoke detected in the satellite image and the risk for fire predicted given the day's conditions.
+  <p align="center">
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/flask_app1.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/flask_app2.png" width="100%" height="100%"/>
+  </p>
 
-# flask app link!
+
+
 # screenshot of flaskapp homepage
 # Next Steps
 
