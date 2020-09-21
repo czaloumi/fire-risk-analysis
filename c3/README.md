@@ -63,3 +63,7 @@ After establishing a baseline CNN model, I chose to transfer learn with Xception
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="75%" height="75%"/>
+ </p>
