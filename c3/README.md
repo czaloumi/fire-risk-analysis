@@ -68,7 +68,7 @@ Intermediate metric measurements while training and unfreezing layers show Xcept
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="60%" height="60%"/>
  </p>
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="75%" height="75%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="75%" height="75%"/> 
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction4.png" width="75%" height="75%"/> 
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="100%" height="100%"/> 
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
    </p>
