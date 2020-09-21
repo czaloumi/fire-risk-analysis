@@ -74,15 +74,12 @@ The conditions_df was modified further to fit classifier models on. Modification
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/knn_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/forest_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_cm.jpeg" width="30%" height="30%"/>
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/run1_roccurves%2Cjpeg.png" width="35%" height="35%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost_comparison_roc.jpeg" width="40%" height="40%"/>
   </p>
-The hyptertuned xgboost's results and feature importances as determined by "gain". It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate fire prediction.
+## Final XGBoost
+The hyptertuned xgboost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate fire prediction.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
 
 
 
-  <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="100%" height="100%"/> 
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
-  </p>
+modify further - look at conditions today - target if there is a fire in the next x amount of days
