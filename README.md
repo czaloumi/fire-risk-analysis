@@ -29,7 +29,7 @@ I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm
  * Terra MODIS Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  
  <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/test_image_examples.jpeg" width="75%" height="75%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/test_image_examples.jpeg" width="75%" height="75%"/>
  </p>
 
 ## Environmental Conditions Data
