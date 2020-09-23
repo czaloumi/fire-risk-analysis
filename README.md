@@ -81,5 +81,17 @@ Users can view the combined model's fire risk analysis soon to be deployed on an
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="100%" height="100%"/>
   </p>
 
-# RNN & Next Steps
-Unfortunately at this time I have not been able to get a RNN and LSTM working for a dataframe with multiple entries on the same date for more than one weather station. Moving forward, after training a RNN/LSTM to predict accurate fire risk given the previous few day's conditions, I will be able to predict today or the next few day's risk for fire.
+# Next Steps
+## RNN & LSTM
+This project has only scraped the surface for fire prevention and risk analysis. In order to analyze current and future risk, it is necessary to build a model with a memory component. Two such models are reccurent neural networks and long short-term memory models, RNN & LSTM.
+
+At this time, I have built a basic LSTM for one weather station, for one month, with one feature (Avg Soil Temp (F)-deemed most important feature for gain by XGBoost Classifier) however the problem is much more complex with the conditions dataframe on hand. The conditions dataframe has 14 features, and 126 weather stations with up to 900 or more repeated dates. This problem will grow more complex with more data, and adding more data is necessary to maintain relevance.
+
+Ideas for moving forward:
+* build a model trained for all features, for one weather station (region/location) for a year or less time.
+* build a model trained for the most important features, for one weather station, for a year or less time.
+
+# References
+  <p align="center">
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/Screen%20Shot%202020-09-23%20at%2011.40.38%20AM.png" width="100%" height="100%"/>
+  </p>
