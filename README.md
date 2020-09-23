@@ -47,7 +47,7 @@ I will leave it to readers to familiarize themselves with Xception. The image mo
  </p>
 The final model obtained **95% accuracy, 76% recall, 89% precision**. The final trained model's confusion matrix is displayed below. Final prediction examples on satellite imagery displayed below as well.
  <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="50%" height="50%"/>
