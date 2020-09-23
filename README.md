@@ -45,7 +45,7 @@ I will leave it to readers to familiarize themselves with Xception. The image mo
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
  </p>
-The final model obtained **95% accuracy, 76% recall, 89% precision**. The final trained model's confusion matrix is displayed below. Final prediction examples on satellite imagery displayed below as well.
+The final model obtained **95% accuracy, 76% recall, 89% precision**. Several predictions are listed below, to evaluate the model's abilities to determine smoke in images it was not trained on. The first image is labeled as smoke and the model classified it correctly as smoke. The second is labeled fog and the model also classified it correctly. The third image is a great example for how the model is not perfect and categorized the image as mainly smoke. Visually, it is hard for the human eye to determine if there is smoke or fog in that image. 
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
