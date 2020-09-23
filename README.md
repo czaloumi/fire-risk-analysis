@@ -9,21 +9,20 @@
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/cawildfire.jpeg" width="75%" height="75%"/>
  </p>
- 
- The objective of this project is to analyze risk for fire in Northern and Southern California based off of environmental conditions and satellite imagery. My initial goal was to build three models for analyzing risk:
- 
- 1. Transfer learning Xception for smoke detection in satellite imagery.
+2020 fires in California are breaking records and are the worst the state has seen in the past 18 years. Tens of thousands have been uprooted from their homes and billows of unhealthy air conditions have blanketed the rest of California's neighbor states.
+
+The objective of this project is to analyze risk for fire in Northern and Southern California from 1/1/2018 to 9/13/2020 based off of environmental conditions and satellite imagery. My objective can be organized in three points:
+ 1. Transfer learning with Xception for smoke detection in satellite imagery.
  2. An XGBoost Classifier for fire risk based on daily conditions data.
- 3. A RNN and LSTM to determine current and future fire risk based off historical data.
+ 3. Ensemble models, weight probabilities, and deploy on Flask APP.
  
  # Data
- 
-This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 rows of data.
+This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 observations with 14 features of environmental conditions (also heavily imbalanced). I scraped data from the two websites below.
  * USDA Forest Service Satellite Imagery: https://fsapps.nwcg.gov/afm/imagery.php
  * CIMIS Conditions: https://cimis.water.ca.gov/Default.aspx
  
 ## Satellite Images
-I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a chromedriver. Interested readers can view the source code at image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters. Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
+I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a chromedriver. Interested readers can view the source code in image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters. Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
 
  * Aqua MODIS (Moderate Resolution Imaging Spectroradiometer) Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  * Terra MODIS Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
@@ -35,37 +34,28 @@ Images were then filed into smoke and fog subfolders and labeled with date and r
  </p>
 
 ## Environmental Conditions Data
-The conditions dataframe was downloaded from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. I chose daily data entries (https://cimis.water.ca.gov/Default.aspx). Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California counties and cities with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
+The conditions dataframe was downloaded in batces from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. I chose daily data entries (https://cimis.water.ca.gov/Default.aspx). Readers can access the cleaned csv's in the data folder. The corresponding conditions_df.csv represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California fires by county and city with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv). I went on to drop 'Stn Name', 'CIMIS Region', and 'Date' for simplicity.
 
 Stn Id |	Stn Name |	CIMIS Region |	Date |	ETo (in) |	Precip (in) |	Sol Rad (Ly/day) |	Avg Vap Pres (mBars) |	Max Air Temp (F) |	Min Air Temp (F) |	Avg Air Temp (F) |	Max Rel Hum (%) |	Min Rel Hum (%) |	Avg Rel Hum (%) |	Dew Point (F) |	Avg Wind Speed (mph) |	Wind Run (miles) |	Avg Soil Temp (F) | Target
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
 249	| Ripon	| San Joaquin Valley |	8/6/2020 |	0.25 |	0.0 |	680.0 |	18.3 |	96.3 |	51.7 |	72.8 |	99.0 |	46.0 |	66.0 |	60.9 |	4.2 |	100.3 |	70.3 |	0
 
 # Xception
-
-The image models used in this project measure their improvements around recall. Recall was determined the most important metric because it encapsulates the models' abilities to determine fewer false negatives, ultimately a more costly endeavor (think not categorizing a satellite image as smoky when it is in fact smoky).
-
-A baseline CNN was built with poor recall ( true positive smoke in images / (true positive smoke in images + false negatives ) ) with results outlined below. The baseline model failed to categorize very smokey images.
-
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_loss_acc.jpeg" width="55%" height="55%"/> <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_roccurve_1.jpeg" width="35%" height="35%"/>
- <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/1cnn/model_prediction_6.jpeg" width="55%" height="55%"/>
- </p>
-To improve on the baseline model, I chose to transfer learn with Xception based off its modified depthwise separable convolution which builds on chained inception modules with two key differences: 1. perform 1×1 convolution first then channel-wise spatial convolution and 2. there is no non-linearity intermediate activation. The first of which does not contribute much to Xception's improved model architecture, while the 2nd attributes improved accuracy. The final Xception model has approximately 74 unfrozen layers that were slowly trained in 4 layer increments for 10 epochs. Xception's model architecture:
+I will leave it to readers to familiarize themselves with Xception. The image model to detect smoke was built using transfer learning with Xception. Layers were unfrozen in 4 layer increments and trained for 10 epochs until the final model had approximately 74 unfrozen layers. Note that the imbalanced dataset needed to be weighted before training. Xception's model architecture:
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
  </p>
-Intermediate metric measurements while training and unfreezing layers show Xception already surpassing the baseline model's metrics. The final trained model's confusion matrix is displayed below. Final prediction examples on satellite imagery displayed below as well.
+The final model obtained **95% accuracy, 76% recall, 89% precision**. The final trained model's confusion matrix is displayed below. Final prediction examples on satellite imagery displayed below as well.
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
  <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="50%" height="50%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="50%" height="50%"/>
  </p>
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction1.png" width="100%" height="100%"/> 
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
+   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction3.png" width="100%" height="100%"/> 
    </p>
 
 # XGBoost Classifier
