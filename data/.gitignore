@@ -1,1 +1,10 @@
+*/
+*.h5
+*.dat
 *.zip
+
+cp.ckpt.data-00000-of-00001
+cp.ckpt.index
+checkpoint
+
+!.gitignore

@@ -40,7 +40,7 @@ def combinedModels(region, date):
     '''
 
     # Load models
-    boost = pickle.load(open("../../models/pima.pickle.dat", "rb"))
+    boost = pickle.load(open("../../models/xgboost_model", "rb"))
     xception = load_model('../../models/xception_50epoch.h5')
     
     # Define Xception inputs
@@ -105,7 +105,12 @@ def combinedModels(region, date):
     conditions_risk = round(np.mean(conditions_y_pred),2)
     
     # Overall risk as weighted of Xception prediciton & XGBoost prediction
-    risk = round((.8*(image_risk.ravel()[0]) + 0.2*conditions_risk), 2)
+    if image_risk > 0.5:
+        risk = round((0.8*(image_risk.ravel()[0]) + 0.2*conditions_risk), 2)
+    elif conditions_risk > 0.5:
+        risk = round((0.2*(image_risk.ravel()[0]) + 0.8*conditions_risk), 2)
+    else:
+        risk = round((0.5*(image_risk.ravel()[0]) + 0.5*conditions_risk), 2)
 
     return risk, image_risk, path, label, predicted_label, conditions_risk, df
 

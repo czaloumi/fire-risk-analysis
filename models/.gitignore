@@ -1,3 +1,7 @@
 *
 */
+*.h5
+*.zip
+*.dat
+*.index
 !.gitignore
