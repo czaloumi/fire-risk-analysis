@@ -65,10 +65,11 @@ Prior to deciding on xgboost, knn and random forest classifiers were compared. B
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/knn_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/forest_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost_cm.jpeg" width="30%" height="30%"/>
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost_comparison_roc.jpeg" width="40%" height="40%"/>
   </p>
+  
 ## Final XGBoost
 The hyptertuned xgboost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate fire prediction.
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/boost_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
 
 # Combining Models
