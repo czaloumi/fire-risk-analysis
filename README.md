@@ -4,32 +4,34 @@
 
 #### Author: Chelsea Zaloumis
 #### Galvanize DSI Capstone 3
-*Last update: 9/21/2020*
+*Last update: 9/23/2020*
 
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/cawildfire.jpeg" width="75%" height="75%"/>
  </p>
  
- The objective with this project is to analyze risk for fire in Northern and Southern California based off of environmental conditions and satellite imagery. My initial goal was to build three models for analyzing risk:
+ The objective of this project is to analyze risk for fire in Northern and Southern California based off of environmental conditions and satellite imagery. My initial goal was to build three models for analyzing risk:
  
- 1. A CNN based of Xception for smoke detection in satellite imagery.
- 2. An XGBoost Classifier for fire based on conditions data.
- 3. A RNN (LSTM) to determine current and future fire risk based off historical data.
+ 1. Transfer learning Xception for smoke detection in satellite imagery.
+ 2. An XGBoost Classifier for fire risk based on daily conditions data.
+ 3. A RNN and LSTM to determine current and future fire risk based off historical data.
  
  # Data
  
-This project is comprised of two datasets, one containing satellite imagery of Southern and Northern California, and one containing California Iriigation Management Information System, CIMIS, conditions.
+This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 rows of data.
  * USDA Forest Service Satellite Imagery: https://fsapps.nwcg.gov/afm/imagery.php
  * CIMIS Conditions: https://cimis.water.ca.gov/Default.aspx
-## Satellite Images
-I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a Chrome Driver. Interested readers can view the source code at image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters.
- Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
  
+## Satellite Images
+I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a chromedriver. Interested readers can view the source code at image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters. Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
+
  * Aqua MODIS (Moderate Resolution Imaging Spectroradiometer) Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  * Terra MODIS Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
+
+Images were then filed into smoke and fog subfolders and labeled with date and region (norcal or socal). Here are two examples of the image classes. The left image is labeled as smoke and visually the smoke appears off-color and does not have a general pattern or specific density. The image on the right is labeled as fog and we can see the differences in fog vs. smoke off the bat: fog is whiter, has patterns, or appears in dense clouds.
  
  <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/test_image_examples.jpeg" width="75%" height="75%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2020-09-05_1.jpg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2018-01-05_1.jpg" width="50%" height="50%"/>
  </p>
 
 ## Environmental Conditions Data
@@ -39,11 +41,9 @@ Stn Id |	Stn Name |	CIMIS Region |	Date |	ETo (in) |	Precip (in) |	Sol Rad (Ly/d
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---
 249	| Ripon	| San Joaquin Valley |	8/6/2020 |	0.25 |	0.0 |	680.0 |	18.3 |	96.3 |	51.7 |	72.8 |	99.0 |	46.0 |	66.0 |	60.9 |	4.2 |	100.3 |	70.3 |	0
 
-Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 rows of data.
-
 # Xception
 
-The image models used in this project base their improvements around improving recall. Recall was determined the most important metric because it encapsulates the models' abilities to determine fewer false negatives, ultimately a more costly endeavor (think not categorizing a satellite image as smoky when it is in fact smoky).
+The image models used in this project measure their improvements around recall. Recall was determined the most important metric because it encapsulates the models' abilities to determine fewer false negatives, ultimately a more costly endeavor (think not categorizing a satellite image as smoky when it is in fact smoky).
 
 A baseline CNN was built with poor recall ( true positive smoke in images / (true positive smoke in images + false negatives ) ) with results outlined below. The baseline model failed to categorize very smokey images.
 
