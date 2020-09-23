@@ -60,7 +60,7 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 
 # XGBoost Classifier
 ## Model Comparison
-Prior to deciding on xgboost, knn and random forest classifiers were compared. Because random forest and xgboost performed best, a baseline xgboost was built without hypertuning and obtained the following results. A gridsearch was conducted on an AWS EC2 instance to hypertune xgboost. The grid search was ran twice for approximately 9 hours each run.
+Prior to deciding on xgboost, knn and random forest classifiers were compared to a baselinen xgboost. A gridsearch was conducted on an AWS EC2 instance to hypertune xgboost. The grid search was ran twice for approximately 9 hours each run. The first, baseline xgboost is displayed on the ROC curve figure in red while the hypertuned boost is displayed in purple.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/knn_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/forest_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost_cm.jpeg" width="30%" height="30%"/>
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost_comparison_roc.jpeg" width="40%" height="40%"/>
@@ -77,8 +77,8 @@ Once my models were up to par, I spent a long time attempting to build a new mod
 
 Users can view the combined model's fire risk analysis soon to be deployed on an AWS EC2 instance. The combined models predict fire risk in the past (1/1/2018-9/13/2020) by entering a region: 'norcal' or 'socal' and a corresponding date. The model then outputs the risk for fire on that day given the amount of smoke detected in the satellite image and the risk for fire predicted given the day's conditions.
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/flask_app1.png" width="100%" height="100%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/c3/images/flask_app2.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app1.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="100%" height="100%"/>
   </p>
 
 # RNN & Next Steps
