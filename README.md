@@ -67,11 +67,17 @@ Prior to deciding on xgboost, knn and random forest classifiers were compared to
   </p>
   
 ## Final XGBoost
-The hyptertuned xgboost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to creating an at risk environment for fire.
+The hyptertuned xgboost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate predicion by this model.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/boost_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
-
+Exploring the top two important features further, here are their partial dependence plots portraying their affects on fire risk. Based off the first partial dependence plot for average temperatue we can see that the hotter, the greater risk for fire, until ~75 degrees.
+Solar radiation is linearly related to fire risk up until a peak of ~450 langley/day at which the risk begins decreasing. The third partial dependence plot shows us that for average soil temperature less than ~62 degrees, fire risk is independent of solar radiation.
+But for average soil temperature greater than 62 degrees, there is a strong dependence on solar radiation.
+  <p align="center">
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/partial-dependence.png" width="100%" height="100%"/>
+  </p>
+  
 # Combining Models
 Once my models were up to par, I spent a long time attempting to build a new model which combined the two using keras's functional api. I was unable to modify inputs and outputs to get a functional api model working and instead combined model predictions for fire risk by weighting the two model predictions.
 
@@ -82,8 +88,8 @@ Users can view the combined model's fire risk analysis soon to be deployed on an
   </p>
 
 # Next Steps
-## RNN & LSTM
-This project has only scraped the surface for fire prevention and risk analysis. In order to analyze current and future risk, it is necessary to build a model with a memory component. Two such models are reccurent neural networks and long short-term memory models, RNN & LSTM.
+## LSTM
+This project has only scraped the surface for fire prevention and risk analysis. In order to analyze current and future risk, it is necessary to build a model with a memory component. One such model is a long short-term memory model, LSTM.
 
 At this time, I have built a basic LSTM for one weather station, for one month, with one feature (Avg Soil Temp (F)-deemed most important feature for gain by XGBoost Classifier) however the problem is much more complex with the conditions dataframe on hand. The conditions dataframe has 14 features, and 126 weather stations with up to 900 or more repeated dates. This problem will grow more complex with more data, and adding more data is necessary to maintain relevance.
 
