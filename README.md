@@ -71,8 +71,7 @@ The hyptertuned xgboost's results and feature importances as determined by gain.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/boost_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
-Exploring the top two important features, here are their partial dependence plots portraying their affects on fire risk. Based off the first partial dependence plot for average temperatue we can see that the hotter, the greater risk for fire, until ~75 degrees. Although the reader should notice that the risk only increases about 10%. Solar radiation is linearly related to fire risk up until a peak of ~450 langley/day at which the risk begins decreasing. The third partial dependence plot shows us that for average soil temperature less than ~62 degrees, fire risk is independent of solar radiation.
-But for average soil temperature greater than 62 degrees, there is a strong dependence on solar radiation.
+Exploring the top two important features, here are their partial dependence plots portraying their affects on fire risk. Based off the first partial dependence plot for average temperatue we can see that the hotter, the greater risk for fire, until ~75 degrees. The reader should notice that the risk only increases about 15%. Solar radiation is linearly related to fire risk up until a peak of ~450 langley/day at which the risk begins decreasing. The third partial dependence plot shows us that for average soil temperature less than ~62 degrees, fire risk is independent of solar radiation. But for average soil temperature greater than 62 degrees, there is a strong dependence on solar radiation.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/partial-dependence.png" width="75%" height="75%"/>
   </p>
