@@ -75,7 +75,7 @@ Exploring the top two important features further, here are their partial depende
 Solar radiation is linearly related to fire risk up until a peak of ~450 langley/day at which the risk begins decreasing. The third partial dependence plot shows us that for average soil temperature less than ~62 degrees, fire risk is independent of solar radiation.
 But for average soil temperature greater than 62 degrees, there is a strong dependence on solar radiation.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/partial-dependence.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/partial-dependence.png" width="75%" height="75%"/>
   </p>
   
 # Combining Models
