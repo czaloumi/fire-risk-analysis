@@ -90,7 +90,7 @@ This model performs much better than the first CNN model. Evaluated on hold-out 
  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/src/resources/capstone2/images/m2_predictions_es.jpeg" />
  </p>
  
-However this model is not tuned for the default threshold = 0.5 as we can see from the confusion matrix and ROC curve.
+However this model's confusion matrix also shows high false positives annd false negatives.
 
 ```
 [[ 73  79]
