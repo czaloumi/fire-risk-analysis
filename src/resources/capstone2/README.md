@@ -35,7 +35,7 @@ I opted for generating augmented images. In the resources folder, readers can fi
 
 Examples of images comprising the dataset:
  <p align="center">
- <img src="https://github.com/czaloumi/fire/blob/master/images/test_image_examples.jpeg" />
+ <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/src/resources/capstone2/images/test_image_examples.jpeg" />
  </p>
 
 # CNN Model 1
