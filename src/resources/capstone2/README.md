@@ -61,14 +61,11 @@ This model has o.k. training and test accuracy and is doing slightly better than
  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/src/resources/capstone2/images/m1_predictions50epoch.jpeg" />
  </p>
 
-This model's results become less reliable when we look at the ROC curve and corresponding confusion matrix:
+This model's results become less reliable when we look at its confusion matrix:
 ```
 [[ 59  93]
  [ 58 112]]
 ```
- <p align="center">
- <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/src/resources/capstone2/images/m1_roccurve.jpeg" width="50%" height="50%" />
- </p>
 
 # CNN Model 2
 
