@@ -96,17 +96,21 @@ However this model is not tuned for the default threshold = 0.5 as we can see fr
 [[ 73  79]
  [ 65 100]]
 ```
- <p align="center">
- <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/src/resources/capstone2/images/m2_roccurve50epoch.png" width="50%" height="50%" />
- </p>
 
 **********************************************
 # Next Steps
 **********************************************
+# Data Augmentation & Different Metric
+
+As we saw above, measuring the convolutional neural networks by accuracy alone did not shed light on the high false positive and false negative rates. In fire detection in general, it would be more costly to have false negatives, i.e. saying there isn't a fire when there is in fact a fire raging. 
+
+A better metric is recall, or the total true fire images divided by the true fire images added to the false negatives, or images with fire that the model incorrectly identified.
+
+Also, the models may have seen nature (nonfire) augmented images, but it did not see any augmented fire images. Meaning the models are overtraining on those fire images. I would have liked to remedy this by augmenting both image classes, and oversampling/augmenting the lesser class more.
 
 # Optimal Threshold Tuning and Transfer Learning
 
-I have several options for making Model 2 more accuracte:
+I have several options for making Model 2 more accurate:
 
  1. Tune the prediction threshold to yield the best true positive rate.
  2. Transfer learning from a more robustly trained neural network like ImageNet.
