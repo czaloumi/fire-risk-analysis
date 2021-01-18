@@ -3,7 +3,6 @@
 **********************************************
 
 #### Author: Chelsea Zaloumis
-#### Galvanize DSI Capstone 3
 *Last update: 9/23/2020*
 
  <p align="center">
