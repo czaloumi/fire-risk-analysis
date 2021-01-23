@@ -109,13 +109,3 @@ if __name__ == "__main__":
     #tart_date = '20180101'
     #end_date = '20200913'
     #get_images(start_date, end_date, state='norcal')
-
-    # generating missing socal images from '18 (11/8)
-    start_date = '20180917'
-    end_date = '20181231'
-    get_images(start_date, end_date)
-
-    # generating most recent images for socal (11/8)
-    start_date = '20200914'
-    end_date = '20201108'
-    get_images(start_date, end_date)
