@@ -57,10 +57,9 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 
 # XGBoost Classifier
 ## Model Comparison
-Prior to deciding on xgboost, knn and random forest classifiers were compared to a baselinen xgboost. A gridsearch was conducted on an AWS EC2 instance to hypertune xgboost. The grid search was ran twice for approximately 9 hours each run. The first, baseline xgboost is displayed on the ROC curve figure in red while the hypertuned boost is displayed in purple.
+Compared out of box KNN, Random Forest, and XGBoost. Hypertuned Random Forest using recall for scoring metric. Recall is the ideal metric for fire risk because a false negative would result in a high fire risk day going unnoticed. 
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/knn_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/forest_cm.jpeg" width="30%" height="30%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost_cm.jpeg" width="30%" height="30%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost_comparison_roc.jpeg" width="40%" height="40%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/initial-roc.png" width="40%" height="40%"/>
   </p>
   
 ## Final XGBoost
