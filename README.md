@@ -59,7 +59,7 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 ## Model Comparison
 Compared out of box KNN, Random Forest, and XGBoost. Hypertuned Random Forest using recall for scoring metric. Recall is the ideal metric for fire risk because a false negative would result in a high fire risk day going unnoticed. 
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/initial-roc.png" width="40%" height="40%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/initial-roc.png" width="70%" height="70%"/>
   </p>
   
 ## Final XGBoost
