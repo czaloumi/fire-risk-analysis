@@ -93,5 +93,5 @@ Ideas for moving forward:
 
 # References
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/Screen%20Shot%202020-09-23%20at%2011.40.38%20AM.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tech-used.png" width="100%" height="100%"/>
   </p>
