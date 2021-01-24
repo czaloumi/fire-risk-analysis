@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split, cross_validate, KFold, Gri
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier, plot_importance
-from sklearn.metrics import roc_curve, auc, classification_report, precision_score, recall_score, accuracy_score, f1_score, confusion_matrix, plot_confusion_matrix
+from sklearn.metrics import auc, classification_report, precision_score, recall_score, accuracy_score, f1_score, confusion_matrix, plot_confusion_matrix
 
 def plot_subgroup_hist(df, class1, class2):
     '''
@@ -327,5 +327,3 @@ def profit_curve(estimators, X_train, y_train, X_test, y_test):
 
     return best_thresh
 
-if __name__=="__main__":
-    
