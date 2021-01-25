@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split, cross_validate, KFold, Gri
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier, plot_importance
-from sklearn.metrics import auc, classification_report, precision_score, recall_score, accuracy_score, f1_score, confusion_matrix, plot_confusion_matrix
+from sklearn.metrics import auc, roc_curve, roc_auc_score, classification_report, precision_score, recall_score, accuracy_score, f1_score, confusion_matrix, plot_confusion_matrix
 
 def plot_subgroup_hist(df, class1, class2):
     '''
@@ -37,37 +37,6 @@ def plot_subgroup_hist(df, class1, class2):
     plt.tight_layout()
 
     return fig, axs
-
-def roc_curve(probabilities, labels):
-    '''
-    INPUT: numpy array, numpy array
-    OUTPUT: array, array, array
-
-    Take a numpy array of the predicted probabilities and a numpy array of the
-    true labels.
-    Return the True Positive Rates, False Positive Rates and Thresholds for the
-    ROC curve.
-    '''
-    # tpr = tp / tp+fn
-    # fpr = fp / fp+tn
-    
-    df = pd.DataFrame({'probabilities': probabilities, 'y': labels})
-    df.sort_values('probabilities', inplace=True)
-
-    actual_p = df.y.sum()
-    actual_n = df.shape[0] - df.y.sum()
-    
-    df['tn'] = (df.y == 0).cumsum()
-    df['fn'] = df.y.cumsum()
-    df['fp'] = actual_n - df.tn
-    df['tp'] = actual_p - df.fn
-    
-    df['fpr'] = df.fp/(df.fp + df.tn)
-    df['tpr'] = df.tp/(df.tp + df.fn)
-    df['precision'] = df.tp/(df.tp + df.fp)
-    df['F1'] = 2*((df.tp/(df.tp + df.fp)) * (df.tp/(df.tp + df.fn)))/((df.tp/(df.tp + df.fp)) + (df.tp/(df.tp + df.fn)))
-    df = df.reset_index(drop=True)
-    return df
 
 def plot_roc(ax, df):
     ax.plot([1]+list(df.fpr), [1]+list(df.tpr), label="ROC")
@@ -100,21 +69,20 @@ def roc_continuous_curve(probabilities, alpha, labels):
 
 def model_comparison(model_list, X_train, y_train, X_test, y_test):
     
-    figure(figsize=(15, 10))
+    fig, ax = plt.subplots(figsize=(15, 10))
 
     for m in model_list:
-        model = m # select the model
-        model.fit(X_train, y_train) # train the model
-        y_pred=model.predict(X_test) # predict the test data
-
-    # Compute False postive rate, and True positive rate
-        df = roc_curve(y_pred, y_test)
+        model = m
+        model.fit(X_train, y_train)
+        y_proba = model.predict_proba(X_test)
+        y_proba = y_proba[:,1]
+        fpr, tpr, thresholds = roc_curve(y_test, y_proba)
 
     # Calculate Area under the curve to display on the plot
-        area_under_curve = roc_auc_score(y_test, y_pred)
+        area_under_curve = auc(fpr, tpr)
 
     # Plot the computed values
-        plt.plot(df.fpr, df.tpr, label=f"{model.__class__.__name__}, {round(area_under_curve, 2)}")
+        plt.plot(fpr, tpr, label=f"{model.__class__.__name__}, {round(area_under_curve, 2)}")
 
     # Custom settings for the plot 
     plt.plot([0, 1], [0, 1],'r--')
@@ -123,7 +91,8 @@ def model_comparison(model_list, X_train, y_train, X_test, y_test):
     plt.title('ROC Curve')
     plt.xlabel('1-Specificity (False Positive Rate)')
     plt.ylabel('Sensitivity (True Positive Rate)')
-    plt.legend();
+    plt.legend()
+    plt.show();
 
 def conf_matrix(estimator, X_train, y_train, X_test, y_test):
     estimator.fit(X_train, y_train)
@@ -150,7 +119,47 @@ def conf_matrix(estimator, X_train, y_train, X_test, y_test):
     
     plt.tight_layout()
     plt.show()
+    
+def cross_val(model, X_train, y_train, X_test, y_test, splits=5):
+    '''
+    Cross Validation function
+    
+    PARAMETERS
+    ----------
+        model: estimator
+        X_train, y_train: training data, targets
+        X_test, y_test: testing data, targets
+        splits: kfolds
+        
+    RETURNS
+    -------
+        accuracy: float
+        precision: float
+        recall: float
+        f1-score: float
+    '''
+    kf = KFold(n_splits=splits)
+        
+    accuracy = []
+    precision = []
+    recall = []
+    f1 = []
 
+    for train_index, test_index in kf.split(X_train):
+        X_train_split, X_test_split = X_train.iloc[train_index], X_train.iloc[test_index]
+        y_train_split, y_test_split = y_train.iloc[train_index], y_train.iloc[test_index]
+        model.fit(X_train_split, y_train_split)
+        pred = model.predict(X_test_split)
+
+        assess = lambda method, val=y_test_split, pred=pred: method(val, pred)
+
+        accuracy.append(assess(accuracy_score))
+        precision.append(assess(precision_score))
+        recall.append(assess(recall_score))
+        f1.append(assess(f1_score))
+        
+    return np.mean(accuracy), np.mean(precision), np.mean(recall), np.mean(f1)
+    
 def gridsearch_with_output(estimator, parameter_grid, X_train, y_train):
     '''
     Gridsearches to hypertune estimator on training data.
