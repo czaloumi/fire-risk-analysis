@@ -62,14 +62,18 @@ Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoo
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/model-comparison.png" width="70%" height="70%"/>
   </p>
 
-Tuned XGBoost compared to out of box. Tuned RF compared to out of box.
+Tuned XGBoost compared to out of box. It's important to note that the hypertuned boost performed *worse* than out of the box... Tuned RF compared to out of box.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/xgb-comparison.png" width="70%" height="70%"/>
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/rf-comparison.png" width="70%" height="70%"/>
   </p>
 
-## Final XGBoost
-The hyptertuned xgboost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate predicion by this model.
+---
+*Not updated past this point*
+---
+
+## Final XGBoost Feature Importances
+The hyptertuned XGBoost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate predicion by this model.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/boost_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
