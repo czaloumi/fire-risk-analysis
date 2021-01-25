@@ -57,11 +57,12 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 
 # XGBoost Classifier
 ## Model Comparison
-Compared out of box KNN, Random Forest, and XGBoost. Hypertuned Random Forest using recall for scoring metric. Recall is the ideal metric for fire risk because a false negative would result in a high fire risk day going unnoticed. 
+Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoost. Random Forest performed best. Hypertuned Random Forest and XGBoost using recall for scoring metric. Recall is the ideal metric for fire risk because a false negative would result in a high fire risk day going unnoticed. Random Forest still outperformed XGBoost after gridsearching optimal parameters.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/initial-roc.png" width="70%" height="70%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/model-comparison.png" width="70%" height="70%"/>
   </p>
-  
+
+
 ## Final XGBoost
 The hyptertuned xgboost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate predicion by this model.
   <p align="center">
