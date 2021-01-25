@@ -35,6 +35,8 @@ Images were then filed into smoke and fog subfolders and labeled with date and r
 ## Environmental Conditions Data
 The conditions dataframe was downloaded in bathces from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. I chose daily data entries (https://cimis.water.ca.gov/Default.aspx). Readers can access the cleaned csv (conditions_df.csv) in the data folder. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California fires by county and city with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
 
+There were approximately 16% null values of the positive target class observations. KNN Imputation was used to determine what to fill nans with.
+
 <img src='images/eda_histograms.png'>
 
 # Xception
