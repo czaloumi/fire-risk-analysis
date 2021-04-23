@@ -37,7 +37,7 @@ The conditions dataframe was downloaded in batches from CIMIS California Departm
 
 Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine what to fill nans with.
 
-<img src='images/eda_histograms.png'>
+<img src='images/eda_histogram.png'>
 
 # Xception
 I will leave it to readers to familiarize themselves with Xception. The image model to detect smoke was built using transfer learning with Xception. Layers were unfrozen in 4 layer increments and trained for 10 epochs until the final model had approximately 74 unfrozen layers. Note that the imbalanced dataset needed to be weighted before training. Xception's model architecture:
