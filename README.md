@@ -12,7 +12,7 @@
 
 The objective of this project is to analyze risk for fire in Northern and Southern California from 1/1/2018 to 9/13/2020 based off of environmental conditions and satellite imagery. My objective can be organized in three points:
  1. Transfer learning with Xception for smoke detection in satellite imagery.
- 2. An XGBoost Classifier for fire risk based on daily conditions data.
+ 2. A Classifier for fire risk based on daily conditions data.
  3. Ensemble models, weight probabilities, and deploy on Flask APP.
  
  # Data
@@ -26,16 +26,16 @@ I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm
  * Aqua MODIS (Moderate Resolution Imaging Spectroradiometer) Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  * Terra MODIS Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
 
-Images were then filed into smoke and fog subfolders and labeled with date and region (norcal or socal). Here are two examples of the image classes. The left image is labeled as smoke and visually the smoke appears off-color and does not have a general pattern or specific density. The image on the right is labeled as fog and we can see the differences in fog vs. smoke off the bat: fog is whiter, has patterns, or appears in dense clouds.
+TSee examples of the image classes below. The left image is labeled as smoke and visually the smoke appears off-color and does not have a general pattern or specific density. The image on the right is labeled as fog and we can see the differences in fog vs. smoke off the bat: fog is whiter, has patterns, or appears in dense clouds.
  
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2020-09-05_1.jpg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2018-01-05_1.jpg" width="50%" height="50%"/>
  </p>
 
 ## Environmental Conditions Data
-The conditions dataframe was downloaded in bathces from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. I chose daily data entries (https://cimis.water.ca.gov/Default.aspx). Readers can access the cleaned csv (conditions_df.csv) in the data folder. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. The Target column was obtained by merging Wikipedia tables listing California fires by county and city with a CIMIS Station table, then merging the resulting dataframe with conditions_df(.csv).
+The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv (conditions_df.csv) in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from existing Wikipedia tables.
 
-There were approximately 16% null values of the positive target class observations. KNN Imputation was used to determine what to fill nans with.
+Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine what to fill nans with.
 
 <img src='images/eda_histograms.png'>
 
