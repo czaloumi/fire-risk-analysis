@@ -61,7 +61,7 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 ## Model Comparison
 Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoost. Random Forest performed best. Hypertuned Random Forest and XGBoost using recall for scoring metric. Recall is the ideal metric for fire risk because a false negative would result in a high fire risk day going unnoticed. Random Forest still outperformed XGBoost after gridsearching optimal parameters.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/model-comparison.png" width="70%" height="70%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/model-comparison.png" width="70%" height="70%"/>
   </p>
 
 Tuned XGBoost compared to out of box. It's important to note that the hypertuned boost performed *worse* than out of the box... Tuned RF compared to out of box.
