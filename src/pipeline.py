@@ -50,6 +50,22 @@ def load_and_clean(path, drop_dates=True, drop_min_max=True, drop_cat=False):
         return df, name_region_map
 
 def pipeline(data_path, drop_cat=True):
+    '''
+    Pipeline for modeling.
+    Loads data with load_and_clean,
+    imputes missing values with KNNImputer,
+    standardizes numerical features,
+    if 'Stn Id' column is kept, one-hot-encodes.
+
+    PARAMETERS
+    ----------
+        data_path: string path to data csv
+        drop_cat: boolean for if 'Stn Id' is dropped (default)
+
+    RETURNS
+    -------
+        dataframe ready for modeling
+    '''
     if drop_cat:
         df = load_and_clean(data_path, drop_cat=True)
         target = df.pop('Target')
@@ -68,7 +84,9 @@ def pipeline(data_path, drop_cat=True):
     
     if drop_cat:
         fire_prepared = num_pipeline.fit_transform(df)
-        cols = num_attribs        
+        cols = num_attribs    
+
+        df = pd.DataFrame(fire_prepared, columns=cols)    
     else:
         cat_attribs = ['Stn Id']
 
@@ -85,8 +103,8 @@ def pipeline(data_path, drop_cat=True):
             station_cols.append(region_dict[col][0])
             
         cols = list(df_num.columns) + station_cols
-        
-    df = pd.DataFrame(fire_prepared.todense(), columns=cols)
+
+        df = pd.DataFrame(fire_prepared.todense(), columns=cols)
     
     df['Target'] = target
     df.Target = df.Target.fillna(0)
