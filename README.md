@@ -59,17 +59,17 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 
 # XGBoost Classifier
 ## Model Comparison
-Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoost. Random Forest performed best. Hypertuned Random Forest and XGBoost using recall for scoring metric. Recall is the ideal metric for fire risk because a false negative would result in a high fire risk day going unnoticed. Random Forest still outperformed XGBoost after gridsearching optimal parameters.
+Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). OOB XGBoost outpeforms Random Forest in 5-fold cross validation by 1%.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/model-comparison.png" width="70%" height="70%"/>
   </p>
 
-Tuned XGBoost compared to out of box. It's important to note that the hypertuned boost performed *worse* than out of the box... Tuned RF compared to out of box.
+After plotting XGBoost's feature importance plot as determined by gain, the model used the one-hot-encoded location columns more to split on. Removed categorical columns and XGBoost performed significantly worse: 15% recall in comparison to ~40% recall with all features. Next steps entail random gridsearch to hypertune model performace.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/xgb-comparison.png" width="70%" height="70%"/>
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/rf-comparison.png" width="70%" height="70%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-with-cat-cm.png" width="70%" height="70%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-no-cat-cm.png" width="70%" height="70%"/>
   </p>
-
+  
 ---
 *Not updated past this point*
 ---
@@ -79,11 +79,12 @@ The hyptertuned XGBoost's results and feature importances as determined by gain.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/boost_cm.jpeg" width="45%" height="45%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/0conditions_df/boost2_gain.png" width="50%" height="50%"/>
   </p>
+
 Exploring the top two important features, here are their partial dependence plots portraying their affects on fire risk. Based off the first partial dependence plot for average temperatue we can see that the hotter, the greater risk for fire, until ~75 degrees. The reader should notice that the risk only increases about 15%. Solar radiation is linearly related to fire risk up until a peak of ~450 langley/day at which the risk begins decreasing. The third partial dependence plot shows us that for average soil temperature less than ~62 degrees, fire risk is independent of solar radiation. But for average soil temperature greater than 62 degrees, there is a strong dependence on solar radiation.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/0conditions_df/partial-dependence.png" width="75%" height="75%"/>
   </p>
-  
+
 # Combining Models
 Once my models were up to par, I spent a long time attempting to build a new model which combined the two using keras's functional api. I was unable to modify inputs and outputs to get a functional api model working and instead combined model predictions for fire risk by weighting the two model predictions.
 
