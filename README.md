@@ -66,8 +66,8 @@ Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoo
 
 After plotting XGBoost's feature importance plot as determined by gain, the model used the one-hot-encoded location columns more to split on. Removed categorical columns and XGBoost performed significantly worse: 15% recall in comparison to ~40% recall with all features. Next steps entail random gridsearch to hypertune model performace.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-with-cat-cm.png" width="70%" height="70%"/>
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-no-cat-cm.png" width="70%" height="70%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-with-cat-cm.png" width="50%" height="50%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-no-cat-cm.png" width="50%" height="50%"/>
   </p>
   
 ---
