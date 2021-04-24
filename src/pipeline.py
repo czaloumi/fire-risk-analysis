@@ -5,7 +5,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 
-def load_and_clean(path, drop_min_max=True, keep_dates=True):
+def load_and_clean(path, drop_dates=True, drop_min_max=True, drop_cat=False):
     '''
     Loads conditions dataframe, drops min/max columns,
     several categorical columns, and one outlier.
@@ -13,8 +13,9 @@ def load_and_clean(path, drop_min_max=True, keep_dates=True):
     PARAMETERS
     ----------
         path: string to conditions_df
-        drop_min_max: boolean
-        keep_dates: boolean
+        drop_min_max: boolean for dropping min max columns where avgs already exist
+        drop_dates: boolean for dropping dates if not timeseries problem
+        drop_cat: boolean for dropping 'Stn Id'
         
     RETURNS
     -------
@@ -23,33 +24,40 @@ def load_and_clean(path, drop_min_max=True, keep_dates=True):
     '''
     df = pd.read_csv(path)
     
+    # Removing one outlier
+    df = df[df['Avg Wind Speed (mph)'] > 0]
+
+    if drop_dates:
+        df.drop('Date', axis=1, inplace=True)
+        
     if drop_min_max:
         df.drop(['Max Air Temp (F)', 'Max Rel Hum (%)', 'Min Air Temp (F)',
            'Min Rel Hum (%)'], axis=1, inplace=True)
     
-    # name -> region dict
-    name_region_map = {}
-    for stn_id, stn_name in zip(np.unique(df['Stn Id']), np.unique(df['Stn Name'])):
-        name_region_map[stn_id] = [stn_name, np.unique(df[df['Stn Name']==stn_name]['CIMIS Region'])[0]]
+    if drop_cat:
+        df.drop(['Stn Id', 'Stn Name', 'CIMIS Region', 'Notes'], axis=1, inplace=True)
+        
+        return df
+    else:
+        # name -> region dict
+        name_region_map = {}
+        for stn_id, stn_name in zip(np.unique(df['Stn Id']), np.unique(df['Stn Name'])):
+            name_region_map[stn_id] = [stn_name, np.unique(df[df['Stn Name']==stn_name]['CIMIS Region'])[0]]
     
-    to_drop = ['Stn Name', 'CIMIS Region', 'Notes']
-    df.drop(to_drop, axis=1, inplace=True)
-    
-    if ~(keep_dates):
-        df.drop('Date', axis=1, inplace=True)
-    
-    # Removing one outlier
-    df = df[df['Avg Wind Speed (mph)'] > 0]
-    
-    
-    return df, name_region_map
+        to_drop = ['Stn Name', 'CIMIS Region', 'Notes']
+        df.drop(to_drop, axis=1, inplace=True)
 
-def pipeline():
-    path = '../data/conditions_df.csv'
-    df, region_dict = load_and_clean(path)
-    
-    target = df.pop('Target')
-    df_num = df.drop('Stn Id', axis=1)
+        return df, name_region_map
+
+def pipeline(data_path, drop_cat=True):
+    if drop_cat:
+        df = load_and_clean(data_path, drop_cat=True)
+        target = df.pop('Target')
+        df_num = df.copy()
+    else:
+        df, region_dict = load_and_clean(data_path)
+        target = df.pop('Target')
+        df_num = df.drop('Stn Id', axis=1)
 
     num_pipeline = Pipeline([
         ('imputer', KNNImputer(weights='distance')),
@@ -57,21 +65,27 @@ def pipeline():
     ])
 
     num_attribs = list(df_num.columns)
-    cat_attribs = ['Stn Id']
-
-    full_pipeline = ColumnTransformer([
-        ('num', num_pipeline, num_attribs),
-        ('cat', OneHotEncoder(), cat_attribs)
-    ])
     
-    fire_prepared = full_pipeline.fit_transform(df)
+    if drop_cat:
+        fire_prepared = num_pipeline.fit_transform(df)
+        cols = num_attribs        
+    else:
+        cat_attribs = ['Stn Id']
 
-    cat_cols = list(full_pipeline.named_transformers_['cat'].categories_[0])
-    station_cols = []
-    for col in cat_cols:
-        station_cols.append(region_dict[col][0])
+        full_pipeline = ColumnTransformer([
+            ('num', num_pipeline, num_attribs),
+            ('cat', OneHotEncoder(), cat_attribs)
+        ])
         
-    cols = list(df_num.columns) + station_cols
+        fire_prepared = full_pipeline.fit_transform(df)
+
+        cat_cols = list(full_pipeline.named_transformers_['cat'].categories_[0])
+        station_cols = []
+        for col in cat_cols:
+            station_cols.append(region_dict[col][0])
+            
+        cols = list(df_num.columns) + station_cols
+        
     df = pd.DataFrame(fire_prepared.todense(), columns=cols)
     
     df['Target'] = target
@@ -79,7 +93,8 @@ def pipeline():
     return df
 
 if __name__=="__main__":
-    df = pipeline()
+    path = '../data/stratified_train.csv'
+    df = pipeline(path)
     print(df.shape)
     print(df.Target.value_counts() / len(df))
     print(df.head())
