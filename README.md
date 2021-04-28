@@ -8,15 +8,15 @@
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/cawildfire.jpeg" width="75%" height="75%"/>
  </p>
-2020 fires in California are breaking records and are the worst the state has seen in the past 18 years. Tens of thousands have been uprooted from their homes and billows of unhealthy air conditions have blanketed the rest of California's neighbor states.
+2020 fires in California are breaking records as the worst the state has seen in the past 18 years. Tens of thousands have been uprooted from their homes and billows of unhealthy air conditions have blanketed the rest of California's neighbor states.
 
 The objective of this project is to analyze risk for fire in Northern and Southern California from 1/1/2018 to 9/13/2020 based off of environmental conditions and satellite imagery. My objective can be organized in three points:
  1. Transfer learning with Xception for smoke detection in satellite imagery.
  2. A Classifier for fire risk based on daily conditions data.
- 3. Ensemble models, weight probabilities, and deploy on Flask APP.
+ 3. Explore feature importances and how to combine a final model with human supervision to make better decisions in combatting fire risk.
  
  # Datasets
-This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images). Tabular data collection resulted in 127,138 observations with 14 features of environmental conditions (also heavily imbalanced) and a binary target column. Data was scraped from the two websites below.
+This project is comprised of two datasets: one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images). Tabular data collection resulted in 127,138 observations with 14 features of environmental conditions (also heavily imbalanced) and a binary target column. Data was scraped from the two websites below.
  * Images: [USDA Forest Service Satellite Imagery](https://fsapps.nwcg.gov/afm/imagery.php)
  * Tabular: [CIMIS Conditions](https://cimis.water.ca.gov/Default.aspx)
  
@@ -37,14 +37,18 @@ Xception neural network architecture was trained to detect smoke in satellite im
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
  </p>
-The final model obtained 95% accuracy, 76% recall, 89% precision. Several predictions are listed below, to evaluate the model's abilities to determine smoke in images from the validation set. 
+The final model obtained 95% accuracy, 76% recall, 89% precision. Note that recall is the best metric for evaluation on account of the heavy class imbalance and greater cost with false negative classifications vs. false positives. 
+
+ <p align="center">
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
+ </p>
+ 
+Several predictions are listed below, to evaluate the model's abilities to determine smoke in images from the validation set. 
 
 * The first image is labeled as smoke and the model classified it correctly as smoke. 
 * The second is labeled fog and the model also classified it correctly. 
 * The third image is a great example for how the model is not perfect and categorized the image as mainly smoke. Visually, it is hard for the human eye to determine if there is smoke or fog in that image. 
- <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
- </p>
+
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
@@ -52,31 +56,31 @@ The final model obtained 95% accuracy, 76% recall, 89% precision. Several predic
    </p>
 
 ## Environmental Conditions Data
-The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv (conditions_df.csv) in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from existing Wikipedia tables.
+The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv `conditions_df.csv` in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from Wikipedia tables.
 
-Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine NaNs. Pipeline also consists of standardization and one-hot encoding of station ids for locations.
+Dataset contains approximately 16% null values of the positive target class and a class imbalance. KNN Imputation was used to determine NaNs. Pipeline also consists of standardization of numerical features and one-hot encoding of station ids to represent location. Dataset contained one outlier labeled "experimental". Details in `eda.ipynb`.
  <p align="center">
  <img src='images/eda_histogram.png'>
  </p>
 
 # Tabular Data Model: XGBoost Classifier
 ## Model Comparison
-Compared out of box Logistic Regression (with iterations increased for convergence), Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). OOB XGBoost outpeforms Random Forest in 30-fold cross validation on validation data.
+Compared out of box Logistic Regression (with iterations increased for convergence), Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). Out-Of-Box (OOB) XGBoost outpeforms Random Forest in 30-fold cross validation on validation data.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/model-comparison.png" width="70%" height="70%"/>
   </p>
   
-Out of box Random Forest Classifier learning curve and confusion matrix on validation data.
+OOB Random Forest Classifier learning curve and confusion matrix on validation data.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-cm.png"/>
   </p>
 
-Out of box XGBoost Classifier learning curve and confusion matrix on validation data.
+OOB XGBoost Classifier learning curve and confusion matrix on validation data.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-cm.png"/>
   </p>
 
-GridSearchCV'd to better compare RF to XGB. Each search totalled 192 fits. RF Classifier learning curve and confusion matrix on validation data. Tuned Random Forest performed 60% better on validation data! Average recall on 30 fold cross validation: 77% RECALL. This came at the cost of A TON MORE FALSE POSITIVES. YIKES.
+GridSearchCV'd to better compare RF to XGB. Each search totalled 192 fits. Tuned RF Classifier learning curve and confusion matrix on validation data. Tuned Random Forest performed 60% better on validation data! Average recall on 30 fold cross validation: 77%. This came at the cost of A TON MORE FALSE POSITIVES. YIKES.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-rf-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-rf-cm.png"/>
   </p>
