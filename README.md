@@ -36,9 +36,10 @@ TSee examples of the image classes below. The left image is labeled as smoke and
 The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv (conditions_df.csv) in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from existing Wikipedia tables.
 
 Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine NaNs.
-
-<img src='images/eda_histogram.png'>
-
+ <p align="center">
+ <img src='images/eda_histogram.png'>
+ </p>
+ 
 # Xception
 The model to detect smoke in the satellite imagery was built using transfer learning with Xception's architecture, pretrained on the ImageNet weights. Layers were unfrozen in 4 layer increments and trained for 10 epochs until the final model had approximately 74 unfrozen layers. Note that the imbalanced dataset needed to be weighted before training. Xception's model architecture:
  <p align="center">
