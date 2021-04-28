@@ -95,7 +95,7 @@ Final model chosen for highest recall on validation set. Final model scores:
 
 |Recall|Precision|F1|Accuracy|
 |--|--|--|--|
-|||||
+|0.84|0.096|0.17|0.75|
 
 Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target.
   <p align="center">
