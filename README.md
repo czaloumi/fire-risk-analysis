@@ -93,8 +93,8 @@ Tuned XGBoost Classifier learning curve and confusion matrix on validation data.
 ## Random Forest
 Final model chosen for highest recall on validation set. Final model scores:
 
-|:--:|:--:|:--:|:--:|
 |Recall|Precision|F1|Accuracy|
+|--|--|--|--|
 |||||
 
 Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target.
