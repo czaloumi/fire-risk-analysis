@@ -92,6 +92,7 @@ Tuned XGBoost Classifier learning curve and confusion matrix on validation data.
 
 ## Random Forest
 Final model chosen for highest recall on validation set. Final model scores:
+
 |:--:|:--:|:--:|:--:|
 |Recall|Precision|F1|Accuracy|
 |||||
@@ -102,15 +103,10 @@ Inspecting the feature importances will yield insights on features that the mode
   </p>
 
 
-
 ---
 *Not updated past this point*
 ---
 
-  
----
-*Not updated past this point*
----
 
 ## Final XGBoost Feature Importances
 The hyptertuned XGBoost's results and feature importances as determined by gain. It is important to note the use of gain in the feature importances compared to other feature importance metrics. ‘Gain’ is the improvement in accuracy brought by a feature to the branches it is on. These are interesting results to note what environmental conditions contribute to a more accurate predicion by this model.
