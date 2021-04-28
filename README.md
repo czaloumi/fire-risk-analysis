@@ -97,12 +97,19 @@ Final model chosen for highest recall on validation set. Notice high recall at t
 |--|--|--|--|
 |0.84|0.096|0.17|0.75|
 
-Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target. Cherry picking interesting features and plotting their partial dependence plots yields standardized features on the x-axis and probability for fire classification on y-axis.
+Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target. 
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/rf-feature-importance.png"/>
+  </p>
+
+Cherry picking interesting features and plotting their partial dependence plots yields standardized features on the x-axis and probability for fire classification on y-axis. It's important to note that the complete pipeline has not been built, so destandardizing the features is not possible YET.
+* `Avg Soil Temp (F)` > 0 (after StandardScaler in pipeline) there is 30%-45% chance for fire risk which increases exponentially (quickly) with rising `Avg Soil Temp (F)`
+* -0.6 < `Sol Rad (Ly/day)` < 0.5 there is a 2% higher chance for fire risk
+* As `Avg Rel Hum (%)` increases to its average, chances for fire risk decrease 7% (38% -> baseline 31%)
+  <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/3-partial-dependence-plots.png"/>
   </p>
-  
+
 
 ---
 *Not updated past this point*
