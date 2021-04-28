@@ -85,10 +85,14 @@ GridSearchCV'd to better compare RF to XGB. Each search totalled 192 fits. Tuned
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-rf-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-rf-cm.png"/>
   </p>
 
-XGBoost Classifier learning curve and confusion matrix on validation data.
+Tuned XGBoost Classifier learning curve and confusion matrix on validation data. 7% improvement on validation set recall on top of OOB XGB. However severely under performs in comparison to the GridSearched RF. For further work, consider using RandomSearchCV on an XGBoost for better hyperparameter choices.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-xgb-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-xgb-cm.png"/>
   </p>
+
+---
+*Not updated past this point*
+---
 
 After plotting XGBoost's feature importance plot as determined by gain, the model used the one-hot-encoded location columns more to split on. Removed categorical columns and XGBoost performed significantly worse: 15% recall in comparison to ~40% recall with all features. Next steps entail random gridsearch to hypertune model performace.
   <p align="center">
