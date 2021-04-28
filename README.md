@@ -48,9 +48,6 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
- <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/confusion_matrixsmoke%20classification.png" width="50%" height="50%"/>
- </p>
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction0.png" width="100%" height="100%"/>
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction4.png" width="100%" height="100%"/> 
