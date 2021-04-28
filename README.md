@@ -29,7 +29,7 @@ Image data was collected from the [USDA Forest Service](https://fsapps.nwcg.gov/
 Example image classes: the left image is labeled as smoke and visually the smoke appears off-color and does not have a general pattern or specific density. The image on the right is labeled as fog and we can see the differences in fog vs. smoke off the bat: fog is whiter, has patterns, or appears in dense clouds.
  
  <p align="center">
- <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2020-09-05_1.jpg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2018-01-05_1.jpg" width="50%" height="50%"/>
+ <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2020-09-05_1.jpg" width="50%" height="50%"/>&nbsp<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2018-01-05_1.jpg" width="50%" height="50%"/>
  </p>
  
 # Image Model: Xception
