@@ -3,7 +3,7 @@
 **********************************************
 
 #### Author: Chelsea Zaloumis
-*Last update: 1/24/2020*
+*Last update: 4/27/2021*
 
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/cawildfire.jpeg" width="75%" height="75%"/>
