@@ -16,28 +16,32 @@ The objective of this project is to analyze risk for fire in Northern and Southe
  3. Ensemble models, weight probabilities, and deploy on Flask APP.
  
  # Datasets
-This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 observations with 14 features of environmental conditions (also heavily imbalanced). I scraped data from the two websites below.
- * USDA Forest Service Satellite Imagery: https://fsapps.nwcg.gov/afm/imagery.php
- * CIMIS Conditions: https://cimis.water.ca.gov/Default.aspx
+This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images). Tabular data collection resulted in 127,138 observations with 14 features of environmental conditions (also heavily imbalanced) and a binary target column. Data was scraped from the two websites below.
+ * Images: [USDA Forest Service Satellite Imagery](https://fsapps.nwcg.gov/afm/imagery.php)
+ * Tabular: [CIMIS Conditions](https://cimis.water.ca.gov/Default.aspx)
  
 ## Satellite Images
-I collected image data from the USDA Forest Service (https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a chromedriver. Interested readers can view the source code in image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters. Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found here: https://oceancolor.gsfc.nasa.gov/data/aqua/
+Image data was collected from the [USDA Forest Service](https://fsapps.nwcg.gov/afm/imagery.php) with selenium using a chromedriver. View the source code in image_selenium.py. Image data consists of true color satellite imagery at a spatial resolution of 250 meters. Satellites/sensors and their correspdonging image band combination are listed below. More information on the Terra and Aqua satellites can be found [here](https://oceancolor.gsfc.nasa.gov/data/aqua/).
 
  * Aqua MODIS (Moderate Resolution Imaging Spectroradiometer) Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
  * Terra MODIS Corrected Reflectance, True Color Composite (Bands 1, 4, and 3)
 
-TSee examples of the image classes below. The left image is labeled as smoke and visually the smoke appears off-color and does not have a general pattern or specific density. The image on the right is labeled as fog and we can see the differences in fog vs. smoke off the bat: fog is whiter, has patterns, or appears in dense clouds.
+Example image classes: the left image is labeled as smoke and visually the smoke appears off-color and does not have a general pattern or specific density. The image on the right is labeled as fog and we can see the differences in fog vs. smoke off the bat: fog is whiter, has patterns, or appears in dense clouds.
  
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2020-09-05_1.jpg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2018-01-05_1.jpg" width="50%" height="50%"/>
  </p>
  
 # Image Model: Xception
-The model to detect smoke in the satellite imagery was built using transfer learning with Xception's architecture, pretrained on the ImageNet weights. Layers were unfrozen in 4 layer increments and trained for 10 epochs until the final model had approximately 74 unfrozen layers. Note that the imbalanced dataset needed to be weighted before training. Xception's model architecture:
+Xception neural network architecture was trained to detect smoke in satellite imagery, using transfer learning with ImageNet weights. Layers were unfrozen in 4 layer increments and trained for 10 epochs until the final model had approximately 74 unfrozen layers. Note that the imbalanced dataset needed to be weighted before training. Xception's model architecture:
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
  </p>
-The final model obtained **95% accuracy, 76% recall, 89% precision**. Several predictions are listed below, to evaluate the model's abilities to determine smoke in images it was not trained on. The first image is labeled as smoke and the model classified it correctly as smoke. The second is labeled fog and the model also classified it correctly. The third image is a great example for how the model is not perfect and categorized the image as mainly smoke. Visually, it is hard for the human eye to determine if there is smoke or fog in that image. 
+The final model obtained 95% accuracy, 76% recall, 89% precision. Several predictions are listed below, to evaluate the model's abilities to determine smoke in images from the validation set. 
+
+* The first image is labeled as smoke and the model classified it correctly as smoke. 
+* The second is labeled fog and the model also classified it correctly. 
+* The third image is a great example for how the model is not perfect and categorized the image as mainly smoke. Visually, it is hard for the human eye to determine if there is smoke or fog in that image. 
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/xception_metrics1.png" width="175%" height="175%"/>
  </p>
@@ -50,7 +54,7 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 ## Environmental Conditions Data
 The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv (conditions_df.csv) in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from existing Wikipedia tables.
 
-Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine NaNs.
+Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine NaNs. Pipeline also consists of standardization and one-hot encoding of station ids for locations.
  <p align="center">
  <img src='images/eda_histogram.png'>
  </p>
