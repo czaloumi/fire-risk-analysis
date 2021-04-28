@@ -76,7 +76,7 @@ Out of box XGBoost Classifier learning curve and confusion matrix on validation 
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-cm.png"/>
   </p>
 
-GridSearchCV'd to better compare RF to XGB. Each search totalled 192 fits. RF Classifier learning curve and confusion matrix on validation data. Tuned Random Forest performed 60% better on validation data! Average recall on 30 fold cross validation: 77% RECALL.
+GridSearchCV'd to better compare RF to XGB. Each search totalled 192 fits. RF Classifier learning curve and confusion matrix on validation data. Tuned Random Forest performed 60% better on validation data! Average recall on 30 fold cross validation: 77% RECALL. This came at the cost of A TON MORE FALSE POSITIVES. YIKES.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-rf-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-rf-cm.png"/>
   </p>
