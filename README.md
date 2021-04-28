@@ -100,8 +100,9 @@ Final model chosen for highest recall on validation set. Notice high recall at t
 Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target. Cherry picking interesting features and plotting their partial dependence plots yields standardized features on the x-axis and probability for fire classification on y-axis.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/rf-feature-importance.png"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/3-partial-dependence-plots.png"/>
   </p>
-
+  
 
 ---
 *Not updated past this point*
