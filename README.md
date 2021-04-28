@@ -91,13 +91,13 @@ Tuned XGBoost Classifier learning curve and confusion matrix on validation data.
   </p>
 
 ## Random Forest
-Final model chosen for highest recall on validation set. Final model scores:
+Final model chosen for highest recall on validation set. Notice high recall at the cost of very poor precision. Final model scores:
 
 |Recall|Precision|F1|Accuracy|
 |--|--|--|--|
 |0.84|0.096|0.17|0.75|
 
-Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target.
+Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target. Cherry picking interesting features and plotting their partial dependence plots yields standardized features on the x-axis and probability for fire classification on y-axis.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/rf-feature-importance.png"/>
   </p>
