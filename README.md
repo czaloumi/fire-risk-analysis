@@ -59,10 +59,13 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
 
 # XGBoost Classifier
 ## Model Comparison
-Compared out of box Logistic Regression, Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). OOB XGBoost outpeforms Random Forest in 5-fold cross validation by 1%.
+Compared out of box Logistic Regression (with iterations increased for convergence), Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). OOB XGBoost outpeforms Random Forest in 30-fold cross validation on validation data.
   <p align="center">
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/model-comparison.png" width="70%" height="70%"/>
   </p>
+
+<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-learning-curve.png"/><img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-cm.png"/>
+
 
 After plotting XGBoost's feature importance plot as determined by gain, the model used the one-hot-encoded location columns more to split on. Removed categorical columns and XGBoost performed significantly worse: 15% recall in comparison to ~40% recall with all features. Next steps entail random gridsearch to hypertune model performace.
   <p align="center">
