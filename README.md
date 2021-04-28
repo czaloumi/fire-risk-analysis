@@ -66,12 +66,12 @@ Compared out of box Logistic Regression (with iterations increased for convergen
   
 Out of box Random Forest Classifier learning curve and confusion matrix on validation data.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-learning-curve.png" width="60%"/><img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-cm.png"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-rf-cm.png"/>
   </p>
 
 Out of box XGBoost Classifier learning curve and confusion matrix on validation data.
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-learning-curve.png" width="60%"/><img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-cm.png"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/oob-xgb-cm.png"/>
   </p>
 
 After plotting XGBoost's feature importance plot as determined by gain, the model used the one-hot-encoded location columns more to split on. Removed categorical columns and XGBoost performed significantly worse: 15% recall in comparison to ~40% recall with all features. Next steps entail random gridsearch to hypertune model performace.
