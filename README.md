@@ -15,7 +15,7 @@ The objective of this project is to analyze risk for fire in Northern and Southe
  2. A Classifier for fire risk based on daily conditions data.
  3. Ensemble models, weight probabilities, and deploy on Flask APP.
  
- # Data
+ # Datasets
 This project is comprised of two datasets, one containing daily satellite imagery of Northern and Southern California, and one of daily environmental conditions by county and region. Data preparation resulted in approximately 2,000 satellite images (heavily imbalanced with more foggy images than smoke images) and 127,138 observations with 14 features of environmental conditions (also heavily imbalanced). I scraped data from the two websites below.
  * USDA Forest Service Satellite Imagery: https://fsapps.nwcg.gov/afm/imagery.php
  * CIMIS Conditions: https://cimis.water.ca.gov/Default.aspx
@@ -31,16 +31,8 @@ TSee examples of the image classes below. The left image is labeled as smoke and
  <p align="center">
  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2020-09-05_1.jpg" width="50%" height="50%"/><img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/2018-01-05_1.jpg" width="50%" height="50%"/>
  </p>
-
-## Environmental Conditions Data
-The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv (conditions_df.csv) in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from existing Wikipedia tables.
-
-Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine NaNs.
- <p align="center">
- <img src='images/eda_histogram.png'>
- </p>
  
-# Xception
+# Image Model: Xception
 The model to detect smoke in the satellite imagery was built using transfer learning with Xception's architecture, pretrained on the ImageNet weights. Layers were unfrozen in 4 layer increments and trained for 10 epochs until the final model had approximately 74 unfrozen layers. Note that the imbalanced dataset needed to be weighted before training. Xception's model architecture:
  <p align="center">
  <img src="https://miro.medium.com/max/1400/1*hOcAEj9QzqgBXcwUzmEvSg.png" width="75%" height="75%"/>
@@ -55,7 +47,15 @@ The final model obtained **95% accuracy, 76% recall, 89% precision**. Several pr
    <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/3xception_70trained/one_xception_prediction3.png" width="100%" height="100%"/> 
    </p>
 
-# XGBoost Classifier
+## Environmental Conditions Data
+The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv (conditions_df.csv) in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from existing Wikipedia tables.
+
+Dataset contains approximately 16% null values of the positive target class. KNN Imputation was used to determine NaNs.
+ <p align="center">
+ <img src='images/eda_histogram.png'>
+ </p>
+
+# Tabular Data Model: XGBoost Classifier
 ## Model Comparison
 Compared out of box Logistic Regression (with iterations increased for convergence), Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). OOB XGBoost outpeforms Random Forest in 30-fold cross validation on validation data.
   <p align="center">
