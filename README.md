@@ -90,15 +90,23 @@ Tuned XGBoost Classifier learning curve and confusion matrix on validation data.
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-xgb-learning-curve.png" width="60%"/>&nbsp<img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tuned-xgb-cm.png"/>
   </p>
 
+## Random Forest
+Final model chosen for highest recall on validation set. Final model scores:
+|:--:|:--:|:--:|:--:|
+|Recall|Precision|F1|Accuracy|
+|||||
+
+Inspecting the feature importances will yield insights on features that the model's trees split on most to predict the target.
+  <p align="center">
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/rf-feature-importance.png"/>
+  </p>
+
+
+
 ---
 *Not updated past this point*
 ---
 
-After plotting XGBoost's feature importance plot as determined by gain, the model used the one-hot-encoded location columns more to split on. Removed categorical columns and XGBoost performed significantly worse: 15% recall in comparison to ~40% recall with all features. Next steps entail random gridsearch to hypertune model performace.
-  <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-with-cat-cm.png" width="50%" height="50%"/>
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/xgb-no-cat-cm.png" width="50%" height="50%"/>
-  </p>
   
 ---
 *Not updated past this point*
