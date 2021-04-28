@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-whitegrid')
-import plotly.express as px
+import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split, cross_validate, KFold, GridSearchCV
 from sklearn.neighbors import KNeighborsClassifier
@@ -336,3 +336,31 @@ def profit_curve(estimators, X_train, y_train, X_test, y_test):
 
     return best_thresh
 
+def plot_feature_importance(importances, features, model_title, N=15):
+    '''
+    Plots top N feature importances for tree based models.
+    
+    PARAMETERS
+    ----------
+        importances: model.feature_importances_
+        features: df.columns
+        model_title: string for plot title
+        N: int default 15 top features
+        
+    RETURNS
+    -------
+        Plot of feature importances
+    '''
+    feature_importance = np.array(importances)
+    feature_names = np.array(features)
+
+    data={'feature_names':feature_names,'feature_importance':feature_importance}
+    fi_df = pd.DataFrame(data)
+
+    fi_df.sort_values(by=['feature_importance'], ascending=False, inplace=True)
+
+    plt.figure(figsize=(10,8))
+    sns.barplot(x=fi_df['feature_importance'][:N], y=fi_df['feature_names'][:N])
+    plt.title(model_title + ' Feature Importance')
+    plt.xlabel('Feature Importance')
+    plt.ylabel('Features')
