@@ -118,7 +118,7 @@ Cherry picking interesting features and plotting their partial dependence plots 
 4. User interface on dashboard or application to assist firefighters or local authorities in determining fire risk and to aid in making  decisions.
 
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app1.png" width="45%"/>&nbsp<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="55%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app1.png" width="45%"/>&nbsp<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="50%"/>
   </p>
 
 # References
