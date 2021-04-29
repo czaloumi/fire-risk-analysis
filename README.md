@@ -110,29 +110,17 @@ Cherry picking interesting features and plotting their partial dependence plots 
   <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/3-partial-dependence-plots.png"/>
   </p>
 
+# Next Steps
+## Combining Models
+1. Build scraping pipeline to load most recent satellite imagery and conditions data to S3 bucket.
+2. Keras's functional api. Combine image model and conditions model for a weighted soft classification for fire risk.
 
----
-*Not updated past this point*
----
-
-# Combining Models
-Once my models were up to par, I spent a long time attempting to build a new model which combined the two using keras's functional api. I was unable to modify inputs and outputs to get a functional api model working and instead combined model predictions for fire risk by weighting the two model predictions.
-
-Users can view the combined model's fire risk analysis soon to be deployed on an AWS EC2 instance. The combined models predict fire risk in the past (1/1/2018-9/13/2020) by entering a region: 'norcal' or 'socal' and a corresponding date. The model then outputs the risk for fire on that day given the amount of smoke detected in the satellite image and the risk for fire predicted given the day's conditions.
   <p align="center">
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app1.png" width="100%" height="100%"/>
   <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="100%" height="100%"/>
   </p>
 
-# Next Steps
-## LSTM
-This project has only scraped the surface for fire prevention and risk analysis. In order to analyze current and future risk, it is necessary to build a model with a memory component. One such model is a long short-term memory model, LSTM.
-
-At this time, I have built a basic LSTM for one weather station, for one month, with one feature (Avg Soil Temp (F)-deemed most important feature for gain by XGBoost Classifier) however the problem is much more complex with the conditions dataframe on hand. The conditions dataframe has 14 features, and 126 weather stations with up to 900 or more repeated dates. This problem will grow more complex with more data, and adding more data is necessary to maintain relevance.
-
-Ideas for moving forward:
-* build a model trained for all features, for one weather station (region/location) for a year or less time.
-* build a model trained for the most important features, for one weather station, for a year or less time.
+3. [LSTM or other forecasting method for tabular data.]()
 
 # References
   <p align="center">
