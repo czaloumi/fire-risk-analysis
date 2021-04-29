@@ -114,15 +114,14 @@ Cherry picking interesting features and plotting their partial dependence plots 
 ## Combining Models
 1. Build scraping pipeline to load most recent satellite imagery and conditions data to S3 bucket.
 2. Keras's functional api. Combine image model and conditions model for a weighted soft classification for fire risk.
+3. [LSTM or other forecasting method for tabular data.]()
+4. User interface on dashboard or application to assist firefighters or local authorities in determining fire risk and to aid in making  decisions.
 
   <p align="center">
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app1.png" width="100%" height="100%"/>
-  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app1.png" width="35%"/>&nbsp<img src="https://github.com/czaloumi/cnn-fire-detection/blob/master/images/flask_app2.png" width="35%"/>
   </p>
-
-3. [LSTM or other forecasting method for tabular data.]()
 
 # References
   <p align="center">
-  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tech-used.png" width="100%" height="100%"/>
+  <img src="https://github.com/czaloumi/fire-risk-analysis/blob/master/images/tech-used.png" width="75%"/>
   </p>
