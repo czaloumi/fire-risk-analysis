@@ -56,7 +56,7 @@ Several predictions are listed below, to evaluate the model's abilities to deter
    </p>
 
 ## Environmental Conditions Data
-The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv `conditions_df.csv` in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 and has the following columns where "Target" represents a binary classification for fire or no fire. Target column was merged from Wikipedia tables.
+The conditions dataframe was downloaded in batches from CIMIS California Department of Water Resources which provides hourly, daily, and monthly information. Readers can access the cleaned csv `conditions_df.csv` in the data folder and a pipeline for modeling prep in `pipeline.py`. The data represents entries from 1/1/2018 to 9/13/2020 however the dates were dropped for simplification (*further work: [fire risk forecasting]()*). "Target" represents a binary classification for fire or no fire. Target column was merged from Wikipedia tables.
 
 Dataset contains approximately 16% null values of the positive target class and a class imbalance. KNN Imputation was used to determine NaNs. Pipeline also consists of standardization of numerical features and one-hot encoding of station ids to represent location. Dataset contained one outlier labeled "experimental". Details in `eda.ipynb`.
  <p align="center">
