@@ -63,7 +63,7 @@ Dataset contains approximately 16% null values of the positive target class and 
  <img src='images/eda_histogram.png'>
  </p>
 
-# Tabular Data Model: XGBoost Classifier
+# Tabular Data Model: Random Forest Classifier
 ## Model Comparison
 Compared out of box Logistic Regression (with iterations increased for convergence), Decision Tree, Random Forest, and XGBoost. Recall is the ideal metric for fire risk to minimize false negatives (ignoring a fire alarm). Out-Of-Box (OOB) XGBoost outpeforms Random Forest in 30-fold cross validation on validation data.
   <p align="center">
