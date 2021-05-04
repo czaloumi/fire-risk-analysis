@@ -108,11 +108,17 @@ def pipeline(data_path, drop_cat=True):
     
     df['Target'] = target
     df.Target = df.Target.fillna(0)
-    return df
+
+    if full_pipeline:
+        return df, full_pipeline
+
+    else:
+        return df, num_pipeline
 
 if __name__=="__main__":
     path = '../data/stratified_train.csv'
-    df = pipeline(path)
+    df, pipeline = pipeline(path)
+    
     print(df.shape)
     print(df.Target.value_counts() / len(df))
     print(df.head())
